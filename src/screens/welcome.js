@@ -39,11 +39,15 @@ const WelcomeScreen = () => {
         </View>
         <Space height={15} />
         <Text style={styles.description}>
-          By tapping continue i agree to the Terms of service.
+          By tapping continue i agree to the{' '}
+          <Text style={styles.terms}>Terms of service.</Text>
         </Text>
         <Space height={40} />
 
-        <Text style={styles.description}>Already have an account? Login</Text>
+        <Text style={styles.description}>
+          Already have an account?&nbsp;
+          <Text style={styles.underline}>Login</Text>
+        </Text>
         <Space height={60} />
       </View>
     </ImageBackground>
@@ -81,6 +85,13 @@ const styles = StyleSheet.create({
     color: 'grey',
     fontSize: 14,
     alignSelf: 'center',
+  },
+  terms: {
+    color: '#246bbc',
+  },
+  underline: {
+    textDecorationLine: 'underline',
+    color: '#246bbc',
   },
 });
 

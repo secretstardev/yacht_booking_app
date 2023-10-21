@@ -7,6 +7,7 @@ import {
   Button,
   ImageBackground,
   StyleSheet,
+  KeyboardAvoidingView 
 } from 'react-native';
 
 import CheckBox from 'expo-checkbox';
@@ -14,7 +15,7 @@ import TextButton from '../components/TextButton';
 import Space from '../components/space';
 import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
@@ -27,13 +28,18 @@ const LoginScreen = () => {
           style={styles.logo}
         />
         <Space height={20} />
-        <Text style={styles.title}>Welcome Back</Text>
+        <Text style={styles.title}>Create your new account</Text>
         <Space height={10} />
         <Text style={styles.description}>
-          Do not have an account? <Text style={styles.register}>Register</Text>
+          Already have an account? <Text style={styles.register}>Login</Text>
         </Text>
 
         <Space height={30} />
+        <IconTextInput
+          placeholder="Full Name"
+          image={require('../assets/images/user.png')}
+        />
+        <Space height={20} />
         <IconTextInput
           placeholder="Email Address"
           image={require('../assets/images/email.png')}
@@ -45,31 +51,22 @@ const LoginScreen = () => {
           secureTextEntry={true}
         />
         <Space height={20} />
-        <View style={styles.floatContainer}>
-          <View style={styles.left}>
-            <View style={styles.row}>
-              <CheckBox
-                color="#246bbc"
-                disabled={false}
-                value={toggleCheckBox}
-                onValueChange={newValue => setToggleCheckBox(newValue)}
-              />
-              <Text> Remeber Password</Text>
-            </View>
-          </View>
-          <View style={styles.right}>
-            <Text>Forgot password?</Text>
-          </View>
-        </View>
-        <Space height={30} />
-
+        <IconTextInput
+          placeholder="Reference Code"
+          image={require('../assets/images/barcode.png')}
+        />
+        <Space height={20} />
         <TextButton
-          title="Login"
+          title="Continue with email"
           onPress={() => {
             console.log('OK');
           }}
         />
-        <Space height={30} />
+        <Text style={styles.description}>
+          By tapping continue i agree to the{' '}
+          <Text style={styles.terms}>Terms of service.</Text>
+        </Text>
+        <Space height={10} />
       </View>
     </ImageBackground>
   );
@@ -145,6 +142,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     color: '#424242',
   },
+  terms: {
+    color: '#246bbc'
+  }
 });
 
-export default LoginScreen;
+export default RegisterScreen;
