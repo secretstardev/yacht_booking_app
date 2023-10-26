@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import TextButton from '../components/TextButton';
-import Space from '../components/space';
+import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 const WelcomeScreen = () => {
   return (
