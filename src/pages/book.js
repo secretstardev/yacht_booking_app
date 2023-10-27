@@ -876,6 +876,7 @@ const styles = {
   container: {flexGrow: 1, overflow: 'scroll'},
   contain: {
     flex: 1,
+    // padding: 20,
     alignItems: 'center',
     justifyContent: 'center',
   },

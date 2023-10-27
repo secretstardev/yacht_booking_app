@@ -11,7 +11,7 @@ import {
 
 import CheckBox from 'expo-checkbox';
 import TextButton from '../components/TextButton';
-import Space from '../components/space';
+import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
 const LoginScreen = () => {
