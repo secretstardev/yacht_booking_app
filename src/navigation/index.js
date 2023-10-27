@@ -9,12 +9,15 @@ import BookingsScreen from '../screens/bookings';
 import ProfileScreen from '../screens/profile';
 import HomeScreen from '../screens/home';
 import Yacht from "../pages/yacht";
-
+import Book from "../pages/book";
+import Detailed_book from '../pages/detailed_price';
+import Payment from "../pages/payment";
+import Contact from '../pages/contact';
 const Tab = createMaterialBottomTabNavigator();
 
 const NavigationBar = () => {
   return (
-    <Yacht />
+    <Contact />
     // <Tab.Navigator
     //   initialRouteName="Search"
     //   activeColor="#246bbc"
