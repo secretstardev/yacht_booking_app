@@ -9,7 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import Space from '../components/space';
+import Space from '../components/Space';
 import {Image} from 'react-native-elements';
 import {Pressable} from 'react-native';
 

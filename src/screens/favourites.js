@@ -8,7 +8,7 @@ import {
   Animated,
   Button,
 } from 'react-native';
-import Space from '../components/space';
+import Space from '../components/Space';
 import TextButton from '../components/TextButton';
 import Slider from 'rn-range-slider';
 
