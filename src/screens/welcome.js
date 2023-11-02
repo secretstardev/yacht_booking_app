@@ -11,47 +11,57 @@ import {
 import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
-const WelcomeScreen = () => {
+
+const WelcomeScreen = ({ navigation }) => {
   return (
     <ImageBackground
       source={require('../assets/images/welcome.png')}
-      style={styles.backgroundImage}>
+      style={styles.backgroundImage}
+    >
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          <Space height={30} />
-          <Image
-            source={require('../assets/images/logo_1.png')}
-            style={styles.logo}
-          />
-          <Space height={20} />
-          <Text style={styles.title}>Welcome</Text>
-          <Space height={10} />
-          <Text style={styles.description}>
-            Create an account to get an exciting offers
-          </Text>
-          <Space height={30} />
-          <TextButton
-            title="Continue with email"
-            onPress={() => {
-              console.log('OK');
-            }}
-          />
-          <View style={styles.buttonContainer}>
-            <IconButton icon="apple" />
-            <IconButton icon="google" />
+          <View style={styles.centerContainer}>
+            <Space height={30} />
+            <Image
+              source={require('../assets/images/logo_1.png')}
+              style={styles.logo}
+            />
+            <Space height={20} />
+            <Text style={styles.title}>Welcome</Text>
+            <Space height={10} />
+            <Text style={styles.description}>
+              Create an account to get an exciting offers
+            </Text>
+            <Space height={30} />
+            <TextButton
+              title="Continue with email"
+              onPress={() => {
+                navigation.navigate('Register');
+              }}
+            />
+            <View style={styles.buttonContainer}>
+              <IconButton icon="apple" />
+              <IconButton icon="google" />
+            </View>
+            <Space height={15} />
+            <Text style={styles.description}>
+              By tapping continue i agree to the{' '}
+              <Text style={styles.terms}>Terms of service.</Text>
+            </Text>
+            <Space height={40} />
+            <Text style={styles.description}>
+              Already have an account?&nbsp;
+              <Text
+                style={styles.underline}
+                onPress={() => {
+                  navigation.navigate('Login');
+                }}
+              >
+                Login
+              </Text>
+            </Text>
+            <Space height={60} />
           </View>
-          <Space height={15} />
-          <Text style={styles.description}>
-            By tapping continue i agree to the{' '}
-            <Text style={styles.terms}>Terms of service.</Text>
-          </Text>
-          <Space height={40} />
-
-          <Text style={styles.description}>
-            Already have an account?&nbsp;
-            <Text style={styles.underline}>Login</Text>
-          </Text>
-          <Space height={60} />
         </ScrollView>
       </View>
     </ImageBackground>
@@ -61,16 +71,18 @@ const WelcomeScreen = () => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'contain', // or 'contain' if you want to fit the image within the screen
+    resizeMode: 'contain',
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
     paddingHorizontal: 16,
   },
   contentContainer: {
     flexGrow: 1,
-    overflow: 'scroll', // or 'hidden', 'visible', 'auto'
+  },
+  centerContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   logo: {
     width: 100,

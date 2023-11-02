@@ -12,8 +12,8 @@ import {
 import Space from '../components/Space';
 import {Image} from 'react-native-elements';
 import {Pressable} from 'react-native';
-
-const Home = () => {
+import Home from "./Search/home";
+const Search = ({navigation}) => {
   const [section, setSection] = useState(true);
   const scale1 = useRef(new Animated.Value(1)).current;
   const scale2 = useRef(new Animated.Value(1)).current;
@@ -56,7 +56,7 @@ const Home = () => {
       useNativeDriver: true,
     }).start();
   };
-  
+
   const onPressIn3 = () => {
     Animated.timing(scale3, {
       toValue: 0.8,
@@ -152,179 +152,11 @@ const Home = () => {
           </TouchableOpacity>
         </Animated.View>
         <View style={styles.mainContent}>
-          <ScrollView contentContainerStyle={styles.contentContainer}>
+          <ScrollView
+            contentContainerStyle={styles.contentContainer}
+            showsVerticalScrollIndicator={false}>
             {!section ? (
-              <>
-                <View style={styles.topSection}>
-                  <Space height={40} />
-                  <View style={styles.locationSection}>
-                    <Image
-                      source={require('../assets/images/location.png')}
-                      style={[styles.icon, styles.left]}
-                    />
-                    <View style={[styles.left, styles.locationText]}>
-                      <Text style={styles.locationLabel}>Location</Text>
-                      <Text style={styles.location}>Lorem Ipsum </Text>
-                    </View>
-                    <Image
-                      source={require('../assets/images/avatar.png')}
-                      style={[styles.icon, styles.right]}
-                    />
-                  </View>
-                  <Space height={20} />
-                  <View style={styles.label}>
-                    <Text style={styles.location}>With Luxury Yachts</Text>
-                    <Text style={styles.location}>Relax on this planet...</Text>
-                  </View>
-                  <Space height={20} />
-                  <Animated.View style={{transform: [{scale: scale1}]}}>
-                    <Pressable onPressIn={onPressIn} onPressOut={onPressOut}>
-                      <View style={styles.searchField}>
-                        <Image
-                          source={require('../assets/images/search.png')}
-                          style={styles.searchIcon}
-                        />
-                        <Text style={styles.searchLabel}>
-                          Where do you want to sail?
-                        </Text>
-                      </View>
-                    </Pressable>
-                  </Animated.View>
-                </View>
-                <View style={styles.main}>
-                  <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 20,
-                        fontWeight: 'bold',
-                      }}>
-                      Type
-                    </Text>
-                    <Space height={10} />
-                    <ScrollView style={styles.carousel} horizontal={true}>
-                      <View>
-                        <Image
-                          source={require('../assets/images/type_1.png')}
-                          style={styles.image}
-                        />
-                        <Space height={8} />
-                        <Text style={styles.textAlignCenter}>Yacht</Text>
-                      </View>
-                      <Space width={20} />
-                      <View>
-                        <Image
-                          source={require('../assets/images/type_2.png')}
-                          style={styles.image}
-                        />
-                        <Space height={8} />
-                        <Text style={styles.textAlignCenter}>RIB</Text>
-                      </View>
-                      <Space width={20} />
-                      <View>
-                        <Image
-                          source={require('../assets/images/type_3.png')}
-                          style={styles.image}
-                        />
-                        <Space height={8} />
-                        <Text style={styles.textAlignCenter}>HouseBoat</Text>
-                      </View>
-                    </ScrollView>
-                  </View>
-                  <Space height={20} />
-                  <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 20,
-                        fontWeight: 'bold',
-                      }}>
-                      Popular Destination
-                    </Text>
-                    <Space height={10} />
-                    <ScrollView style={styles.carousel} horizontal={true}>
-                      <View>
-                        <Image
-                          source={require('../assets/images/destination_1.png')}
-                          style={styles.image}
-                        />
-                        <Space height={8} />
-                        <Text style={styles.textAlignCenter}>
-                          Dubai, Marina
-                        </Text>
-                      </View>
-                      <Space width={20} />
-                      <View>
-                        <Image
-                          source={require('../assets/images/destination_2.png')}
-                          style={styles.image}
-                        />
-                        <Space height={8} />
-                        <Text style={styles.textAlignCenter}>Abu dhabi</Text>
-                      </View>
-                      <Space width={20} />
-                      <View>
-                        <Image
-                          source={require('../assets/images/destination_3.png')}
-                          style={styles.image}
-                        />
-                        <Space height={8} />
-                        <Text style={styles.textAlignCenter}>
-                          Ras Al Khaimah
-                        </Text>
-                      </View>
-                    </ScrollView>
-                  </View>
-                  <Space height={20} />
-                  <View>
-                    <Text
-                      style={{
-                        color: 'black',
-                        fontSize: 20,
-                        fontWeight: 'bold',
-                      }}>
-                      Popular Listing
-                    </Text>
-                    <Space height={10} />
-                    <View style={styles.card}>
-                      <Image
-                        source={require('../assets/images/yacht_1.png')}
-                        style={styles.cardImage}
-                      />
-                      <View style={styles.cardInfo}>
-                        <Text style={{fontWeight: '900', fontSize: 20}}>
-                          Gulf Craft Majestic 62
-                        </Text>
-                        <Text style={{fontSize: 12}}>
-                          Dubai, United Arab Emirates | 25 people | 62 Feet
-                        </Text>
-                        <Space height={5} />
-                        <View styles={styles.searchField}>
-                          <Image
-                            source={require('../assets/images/star.png')}
-                            style={[{flex: 0, width: 24, height: 24}]}
-                          />
-                          <Text styles={{flex: 0}}> 5.0 (34 Bookings)</Text>
-                        </View>
-                        <View styles={styles.searchField}>
-                          <Image
-                            source={require('../assets/images/skipper.png')}
-                            style={[{flex: 0, width: 24, height: 10}]}
-                          />
-                          <Text styles={{flex: 0}}>
-                            {' '}
-                            6 | With or without skippers
-                          </Text>
-                        </View>
-                        <Text style={{fontWeight: '500', fontSize: 20}}>
-                          From 800Aed per hour
-                        </Text>
-                      </View>
-                    </View>
-                    <Space height={30} />
-                  </View>
-                </View>
-              </>
+              <Home />
             ) : (
               <View style={{margin: 16}}>
                 <Animated.View style={{transform: [{scale: scale1}]}}>
@@ -351,7 +183,10 @@ const Home = () => {
                   </Animated.View>
                   <Space width={16} />
                   <Animated.View style={{transform: [{scale: scale3}]}}>
-                    <Pressable onPress={toggleDrawer} onPressIn={onPressIn3} onPressOut={onPressOut3}>
+                    <Pressable
+                      onPress={toggleDrawer}
+                      onPressIn={onPressIn3}
+                      onPressOut={onPressOut3}>
                       <View style={styles.searchWidget}>
                         <Text style={styles.searchItem}>Guests</Text>
                       </View>
@@ -499,6 +334,68 @@ const Home = () => {
           </ScrollView>
         </View>
       </View>
+      <View style={styles.bottomBar}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Favourite');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/heart.png')}
+              style={{width: 22, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Favourites</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Message');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/message.png')}
+              style={{width: 24, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Messages</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Search');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/search_focus.png')}
+              style={{width: 20, height: 22}}
+            />
+            <Text style={{fontSize: 13, color: '#246bbc'}}>Search</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Booking');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/book.png')}
+              style={{width: 22, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Bookings</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Profile');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/profile.png')}
+              style={{width: 15, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Profile</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -511,6 +408,20 @@ const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
     overflow: 'scroll',
+    paddingBottom: 60,
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    height: 80,
+    backgroundColor: 'white',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderTopWidth: 1,
+    borderTopColor: 'gray',
   },
   topSection: {
     height: 260,
@@ -647,4 +558,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Search;

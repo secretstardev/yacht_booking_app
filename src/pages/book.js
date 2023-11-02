@@ -12,7 +12,7 @@ import Space from '../components/Space';
 import TextButton from '../components/TextButton';
 import IconTextButton from '../components/IconTextButton';
 
-const Book = () => {
+const Book = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -20,12 +20,16 @@ const Book = () => {
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <View style={styles.leftComponent}>
+          <TouchableOpacity
+              style={styles.leftComponent}
+              onPress={() => {
+                navigation.navigate('Info');
+              }}>
               <Image
                 source={require('../assets/images/arrow_left.png')}
                 style={{width: 20, height: 20}}
               />
-            </View>
+            </TouchableOpacity>
             <Text style={styles.title}>Booking</Text>
             <View style={styles.rightComponent} />
           </View>
@@ -185,7 +189,7 @@ const Book = () => {
         </ScrollView>
       </View>
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.tab}>
+        <View style={styles.tab}>
           <View style={{flexDirection: 'row', paddingVertical: 8}}>
             <View style={[styles.float, {alignItems: 'center'}]}>
               <View>
@@ -199,7 +203,10 @@ const Book = () => {
                     $1, 800
                   </Text>
                 </View>
-                <View>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate('DetailedPrice');
+                  }}>
                   <Text
                     style={{
                       textDecorationLine: 'underline',
@@ -207,15 +214,21 @@ const Book = () => {
                     }}>
                     Detail Price
                   </Text>
-                </View>
+                </TouchableOpacity>
               </View>
               <Space width={40} />
               <View>
-                <IconTextButton title="Instant Book" />
+                <IconTextButton
+                  title="Instant Book"
+                  hasIcon={true}
+                  onPress={() => {
+                    navigation.navigate('Payment');
+                  }}
+                />
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

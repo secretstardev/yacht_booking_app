@@ -12,6 +12,30 @@ const ImageSlider = props => {
     );
   };
 
+  const styles = StyleSheet.create({
+    container: {
+      height: props.height ? props.height : 280,
+    },
+    dotStyle: {
+      width: 10,
+      height: 10,
+      borderRadius: 10,
+    },
+    activeDotStyle: {
+      width: 16,
+      height: 16,
+      borderRadius: 16,
+    },
+    slide: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Swiper
@@ -28,29 +52,5 @@ const ImageSlider = props => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    height: 280,
-  },
-  dotStyle: {
-    width: 10,
-    height: 10,
-    borderRadius: 10,
-  },
-  activeDotStyle: {
-    width: 16,
-    height: 16,
-    borderRadius: 16,
-  },
-  slide: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-});
 
 export default ImageSlider;

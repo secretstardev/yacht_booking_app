@@ -13,7 +13,7 @@ import Space from '../components/Space';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import TextButton from '../components/TextButton';
 
-const Setting = () => {
+const Setting = ({navigation}) => {
   const languages = ['English - US', 'English - UK', 'Arab - UAE'];
   const currencies = ['US Dollar - $', 'UAE - Aed'];
 
@@ -24,10 +24,15 @@ const Setting = () => {
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.leftComponent}>
-            <Image
-              source={require('../assets/images/arrow_left.png')}
-              style={{width: 20, height: 20}}
-            />
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('Profile');
+              }}>
+              <Image
+                source={require('../assets/images/arrow_left.png')}
+                style={{width: 20, height: 20}}
+              />
+            </TouchableOpacity>
           </View>
           <Text style={styles.title}>Settings</Text>
           <View style={styles.rightComponent} />

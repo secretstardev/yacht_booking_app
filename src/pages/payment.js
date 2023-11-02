@@ -13,7 +13,7 @@ import Space from '../components/Space';
 import TextButton from '../components/TextButton';
 import IconTextButton from '../components/IconTextButton';
 
-const Payment = () => {
+const Payment = ({navigation}) => {
   const [inputValue, setInputValue] = useState('');
 
   // Function to handle text input changes
@@ -28,12 +28,16 @@ const Payment = () => {
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <View style={styles.leftComponent}>
+            <TouchableOpacity
+              style={styles.leftComponent}
+              onPress={() => {
+                navigation.navigate('Book');
+              }}>
               <Image
                 source={require('../assets/images/arrow_left.png')}
                 style={{width: 20, height: 20}}
               />
-            </View>
+            </TouchableOpacity>
             <Text style={styles.title}>Total Price</Text>
             <View style={styles.rightComponent} />
           </View>
@@ -142,7 +146,7 @@ const Payment = () => {
                     placeholder="Enter first name"
                   />
                 </View>
-                <Space  width={8}/>
+                <Space width={8} />
                 <View>
                   <Text>Last Name</Text>
                   <Space height={4} />

@@ -15,7 +15,7 @@ import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
@@ -31,7 +31,9 @@ const RegisterScreen = () => {
         <Text style={styles.title}>Create your new account</Text>
         <Space height={10} />
         <Text style={styles.description}>
-          Already have an account? <Text style={styles.register}>Login</Text>
+          Already have an account? <Text style={styles.register} onPress={() => {
+              navigation.navigate('Login');
+            }}>Login</Text>
         </Text>
 
         <Space height={30} />
@@ -51,15 +53,10 @@ const RegisterScreen = () => {
           secureTextEntry={true}
         />
         <Space height={20} />
-        <IconTextInput
-          placeholder="Reference Code"
-          image={require('../assets/images/barcode.png')}
-        />
-        <Space height={20} />
         <TextButton
           title="Continue with email"
           onPress={() => {
-            console.log('OK');
+            navigation.navigate('Login');
           }}
         />
         <Text style={styles.description}>

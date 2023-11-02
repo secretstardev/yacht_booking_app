@@ -9,25 +9,23 @@ import {
   ScrollView,
 } from 'react-native';
 
-import Space from '../components/Space';
-import YachtCard from '../components/YachtCard';
-const Favourites = ({navigation}) => {
+import Space from '../../components/Space';
+import Home from './home';
+import Filter from './filter';
+
+const Search = ({navigation}) => {
+  const [isHome, setIsHome] = useState(true);
+
   return (
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
-        <View style={styles.header}>
-          <Text style={[styles.title, {textAlign: 'center'}]}>
-            My Favourites
-          </Text>
-        </View>
-        <Space height={16} />
-        <View style={{backgroundColor: '#fffefb', margin: 16}}>
-          <YachtCard />
-          <Space height={32} />
-          <YachtCard />
-        </View>
+        {isHome ? (
+          <Home navigation={navigation} setStatus={setIsHome} />
+        ) : (
+          <Filter navigation={navigation} />
+        )}
       </ScrollView>
       <View style={styles.bottomBar}>
         <TouchableOpacity
@@ -36,10 +34,10 @@ const Favourites = ({navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../assets/images/heart_focus.png')}
+              source={require('../../assets/images/heart.png')}
               style={{width: 22, height: 22}}
             />
-            <Text style={{fontSize: 13, color: '#246bbc'}}>Favourites</Text>
+            <Text style={{fontSize: 13}}>Favourites</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -48,7 +46,7 @@ const Favourites = ({navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../assets/images/message.png')}
+              source={require('../../assets/images/message.png')}
               style={{width: 24, height: 22}}
             />
             <Text style={{fontSize: 13}}>Messages</Text>
@@ -60,10 +58,10 @@ const Favourites = ({navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../assets/images/search.png')}
+              source={require('../../assets/images/search_focus.png')}
               style={{width: 20, height: 22}}
             />
-            <Text style={{fontSize: 13}}>Search</Text>
+            <Text style={{fontSize: 13, color: '#246bbc'}}>Search</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
@@ -72,7 +70,7 @@ const Favourites = ({navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../assets/images/book.png')}
+              source={require('../../assets/images/book.png')}
               style={{width: 22, height: 22}}
             />
             <Text style={{fontSize: 13}}>Bookings</Text>
@@ -84,7 +82,7 @@ const Favourites = ({navigation}) => {
           }}>
           <View style={{alignItems: 'center'}}>
             <Image
-              source={require('../assets/images/profile.png')}
+              source={require('../../assets/images/profile.png')}
               style={{width: 15, height: 22}}
             />
             <Text style={{fontSize: 13}}>Profile</Text>
@@ -100,7 +98,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
-  scrollContainer: {flexGrow: 1, overflow: 'scroll', paddingBottom: 100},
+  scrollContainer: {flexGrow: 1, overflow: 'scroll', paddingBottom: 80},
   contain: {
     flex: 1,
     alignItems: 'center',
@@ -155,4 +153,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Favourites;
+export default Search;

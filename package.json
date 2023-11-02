@@ -30,6 +30,7 @@
     "react-native-svg": "^13.14.0",
     "react-native-swiper": "^1.6.0",
     "react-native-vector-icons": "^10.0.0",
+    "react-query": "^3.39.3",
     "rn-range-slider": "^2.2.2"
   },
   "devDependencies": {

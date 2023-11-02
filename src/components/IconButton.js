@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, Pressable} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Image} from 'react-native';
 
 const IconButton = props => {
@@ -9,9 +9,9 @@ const IconButton = props => {
       ? require(`../assets/images/apple.png`)
       : require(`../assets/images/google.png`);
   return (
-    <Pressable style={styles.button} onPress={onPress}>
+    <TouchableOpacity style={styles.button} onPress={onPress}>
       <Image source={source} style={styles.image} />
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
