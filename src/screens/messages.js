@@ -11,9 +11,11 @@ import {
 
 import Space from '../components/Space';
 
-const Messages = () => {
+const Messages = ({navigation}) => {
+  const [tab, setTab] = useState(true);
+
   return (
-    <View>
+    <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
@@ -27,65 +29,81 @@ const Messages = () => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <View
-            style={{
-              backgroundColor: '#003580',
-              paddingVertical: 4,
-              paddingHorizontal: 8,
-              borderTopLeftRadius: 16,
-              borderBottomLeftRadius: 16,
-              borderWidth: 1,
-              borderColor: '#003580',
-              width: 120,
-            }}>
-            <Text style={{textAlign: 'center', color: 'white'}}>
-              In progress
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: 'white',
-              paddingVertical: 4,
-              paddingHorizontal: 8,
-              borderTopRightRadius: 16,
-              borderBottomRightRadius: 16,
-              borderWidth: 1,
-              borderColor: '#003580',
-              width: 120,
-            }}>
-            <Text style={{textAlign: 'center', color: '#003580'}}>History</Text>
-          </View>
-          <View></View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingVertical: 16,
-            paddingHorizontal: 32,
-          }}>
-          <Image
-            source={require('../assets/images/yacht_2.png')}
-            style={{width: 60, height: 60, borderRadius: 60}}
-          />
-          <Space width={16} />
-          <View style={{justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
-                Muhammad,
-              </Text>
-              <Space width={4} />
-              <Text style={{fontSize: 16, color: 'black'}}>
-                971-50-123-4567
-              </Text>
-            </View>
-            <View>
+          <TouchableOpacity onPress={() => setTab(!tab)}>
+            <View
+              style={{
+                backgroundColor: tab ? '#003580' : 'white',
+                paddingVertical: 4,
+                paddingHorizontal: 8,
+                borderTopLeftRadius: 16,
+                borderBottomLeftRadius: 16,
+                borderWidth: 1,
+                borderColor: '#003580',
+                width: 120,
+              }}>
               <Text
-                style={{fontSize: 16, fontWeight: 'bold', color: '#093373'}}>
-                Luxury 60 Feet Majesty YACHT{' '}
+                style={{textAlign: 'center', color: tab ? 'white' : '#003580'}}>
+                In progress
               </Text>
             </View>
-          </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => setTab(!tab)}>
+            <View
+              style={{
+                backgroundColor: !tab ? '#003580' : 'white',
+                paddingVertical: 4,
+                paddingHorizontal: 8,
+                borderTopRightRadius: 16,
+                borderBottomRightRadius: 16,
+                borderWidth: 1,
+                borderColor: '#003580',
+                width: 120,
+              }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: !tab ? 'white' : '#003580',
+                }}>
+                History
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Chat');
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingVertical: 16,
+              paddingHorizontal: 32,
+            }}>
+            <Image
+              source={require('../assets/images/yacht_2.png')}
+              style={{width: 60, height: 60, borderRadius: 60}}
+            />
+            <Space width={16} />
+            <View style={{justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+                  Muhammad,
+                </Text>
+                <Space width={4} />
+                <Text style={{fontSize: 16, color: 'black'}}>
+                  971-50-123-4567
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{fontSize: 16, fontWeight: 'bold', color: '#093373'}}>
+                  Luxury 60 Feet Majesty YACHT{' '}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </TouchableOpacity>
         <Space height={8} />
         <View
           style={{
@@ -94,35 +112,41 @@ const Messages = () => {
             borderStyle: 'solid',
           }}></View>
         <Space height={8} />
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingVertical: 16,
-            paddingHorizontal: 32,
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Chat');
           }}>
-          <Image
-            source={require('../assets/images/yacht_2.png')}
-            style={{width: 60, height: 60, borderRadius: 60}}
-          />
-          <Space width={16} />
-          <View style={{justifyContent: 'center'}}>
-            <View style={{flexDirection: 'row'}}>
-              <Text style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
-                Muhammad,
-              </Text>
-              <Space width={4} />
-              <Text style={{fontSize: 16, color: 'black'}}>
-                971-50-123-4567
-              </Text>
-            </View>
-            <View>
-              <Text
-                style={{fontSize: 16, fontWeight: 'bold', color: '#093373'}}>
-                Luxury 60 Feet Majesty YACHT{' '}
-              </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingVertical: 16,
+              paddingHorizontal: 32,
+            }}>
+            <Image
+              source={require('../assets/images/yacht_2.png')}
+              style={{width: 60, height: 60, borderRadius: 60}}
+            />
+            <Space width={16} />
+            <View style={{justifyContent: 'center'}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={{fontSize: 16, fontWeight: 'bold', color: 'black'}}>
+                  Muhammad,
+                </Text>
+                <Space width={4} />
+                <Text style={{fontSize: 16, color: 'black'}}>
+                  971-50-123-4567
+                </Text>
+              </View>
+              <View>
+                <Text
+                  style={{fontSize: 16, fontWeight: 'bold', color: '#093373'}}>
+                  Luxury 60 Feet Majesty YACHT{' '}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
         <Space height={8} />
         <View
           style={{
@@ -131,16 +155,95 @@ const Messages = () => {
             borderStyle: 'solid',
           }}></View>
       </ScrollView>
+      <View style={styles.bottomBar}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Favourite');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/heart.png')}
+              style={{width: 22, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Favourites</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Message');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/message_focus.png')}
+              style={{width: 24, height: 22}}
+            />
+            <Text style={{fontSize: 13, color: '#246bbc'}}>Messages</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Search');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/search.png')}
+              style={{width: 20, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Search</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Booking');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/book.png')}
+              style={{width: 22, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Bookings</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Profile');
+          }}>
+          <View style={{alignItems: 'center'}}>
+            <Image
+              source={require('../assets/images/profile.png')}
+              style={{width: 15, height: 22}}
+            />
+            <Text style={{fontSize: 13}}>Profile</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
   scrollContainer: {flexGrow: 1, overflow: 'scroll'},
   contain: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    height: 80,
+    backgroundColor: 'white',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderTopWidth: 1,
+    borderTopColor: 'gray',
   },
   float: {
     flexDirection: 'row',

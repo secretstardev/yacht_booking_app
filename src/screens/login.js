@@ -14,7 +14,7 @@ import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
   return (
@@ -30,7 +30,14 @@ const LoginScreen = () => {
         <Text style={styles.title}>Welcome Back</Text>
         <Space height={10} />
         <Text style={styles.description}>
-          Do not have an account? <Text style={styles.register}>Register</Text>
+          Do not have an account?{' '}
+          <Text
+            style={styles.register}
+            onPress={() => {
+              navigation.navigate('Register');
+            }}>
+            Register
+          </Text>
         </Text>
 
         <Space height={30} />
@@ -66,7 +73,7 @@ const LoginScreen = () => {
         <TextButton
           title="Login"
           onPress={() => {
-            console.log('OK');
+            navigation.navigate('Search');
           }}
         />
         <Space height={30} />

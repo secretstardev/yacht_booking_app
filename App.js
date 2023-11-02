@@ -1,14 +1,18 @@
 import React from 'react';
+import {QueryClient, QueryClientProvider} from 'react-query';
 
-import {NavigationContainer} from '@react-navigation/native';
-import NavigationBar from './src/navigation';
+import MainNavigator from './src/navigation/MainNavigation';
+import {AuthProvider} from './src/AuthProvider';
 
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <NavigationBar />
-    </NavigationContainer>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <MainNavigator />
+      </AuthProvider>
+    </QueryClientProvider>
   );
 };
 

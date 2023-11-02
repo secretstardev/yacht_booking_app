@@ -12,7 +12,7 @@ import Space from '../components/Space';
 import TextButton from '../components/TextButton';
 import IconTextButton from '../components/IconTextButton';
 
-const Detailed_book = () => {
+const Detailed_Price = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -20,12 +20,16 @@ const Detailed_book = () => {
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <View style={styles.leftComponent}>
+            <TouchableOpacity
+              style={styles.leftComponent}
+              onPress={() => {
+                navigation.navigate('Book');
+              }}>
               <Image
                 source={require('../assets/images/arrow_left.png')}
                 style={{width: 20, height: 20}}
               />
-            </View>
+            </TouchableOpacity>
             <Text style={styles.title}>Total Price</Text>
             <View style={styles.rightComponent} />
           </View>
@@ -33,7 +37,10 @@ const Detailed_book = () => {
           <View style={{paddingHorizontal: 40}}>
             <View>
               <View>
-                <Text style={{fontSize: 22, fontWeight  : 'bold', color: '#246bbc'}}>Aed 300 / hour</Text>
+                <Text
+                  style={{fontSize: 22, fontWeight: 'bold', color: '#246bbc'}}>
+                  Aed 300 / hour
+                </Text>
                 <Space height={16} />
                 <View style={[styles.float, {alignItems: 'center'}]}>
                   <Text style={{fontSize: 20, color: '#093373'}}>From</Text>
@@ -86,9 +93,7 @@ const Detailed_book = () => {
                     Service Fee
                   </Text>
                   <View>
-                    <Text style={{fontSize: 15, color: '#093373'}}>
-                      Aed 10
-                    </Text>
+                    <Text style={{fontSize: 15, color: '#093373'}}>Aed 10</Text>
                   </View>
                 </View>
                 <Space height={16} />
@@ -97,9 +102,7 @@ const Detailed_book = () => {
                     Handling Fees
                   </Text>
                   <View>
-                    <Text style={{fontSize: 15, color: '#093373'}}>
-                      Aed 58
-                    </Text>
+                    <Text style={{fontSize: 15, color: '#093373'}}>Aed 58</Text>
                   </View>
                 </View>
                 <Space height={16} />
@@ -123,7 +126,7 @@ const Detailed_book = () => {
         </ScrollView>
       </View>
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.tab}>
+        <View style={styles.tab}>
           <View style={{flexDirection: 'row', paddingVertical: 8}}>
             <View style={[styles.float, {alignItems: 'center'}]}>
               <View>
@@ -140,11 +143,17 @@ const Detailed_book = () => {
               </View>
               <Space width={40} />
               <View>
-                <IconTextButton title="Instant Book" />
+                <IconTextButton
+                  title="Instant Book"
+                  hasIcon={true}
+                  onPress={() => {
+                    navigation.navigate('Payment');
+                  }}
+                />
               </View>
             </View>
           </View>
-        </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -224,4 +233,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Detailed_book;
+export default Detailed_Price;

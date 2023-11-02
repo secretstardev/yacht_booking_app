@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet, Pressable} from 'react-native';
+import {Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const TextButton = props => {
   const {onPress, title = 'Save'} = props;
@@ -27,9 +27,9 @@ const TextButton = props => {
   });
 
   return (
-    <Pressable style={[styles.button, props.style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.button, props.style]} onPress={onPress}>
       <Text style={styles.text}>{title}</Text>
-    </Pressable>
+    </TouchableOpacity>
   );
 };
 
