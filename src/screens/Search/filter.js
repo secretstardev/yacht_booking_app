@@ -2,85 +2,156 @@ import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
-  Dimensions,
-  ScrollView,
-  Animated,
   TouchableOpacity,
   StyleSheet,
+  Animated,
+  Image,
 } from 'react-native';
 
 import Space from '../../components/Space';
-import {Image} from 'react-native-elements';
-import {Pressable} from 'react-native';
+import TextButton from '../../components/TextButton';
 import YachtCard from '../../components/YachtCard';
+import GuestFilter from './GuestFilter';
+import MoreFilter from './MoreFilter';
 
-const Filter = ({navigation}) => {
+const MainScreen = ({navigation}) => {
+  const [filterGuest, setFilterGuest] = useState(false);
+  const drawerRef = useRef(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const drawerAnimation = useRef(new Animated.Value(0)).current;
+  const topBarAnimation = useRef(new Animated.Value(0)).current;
+
+  const openDrawer = () => {
+    setDrawerOpen(true);
+    Animated.parallel([
+      Animated.timing(topBarAnimation, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(drawerAnimation, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  };
+
+  const OpenGuestFilter = () => {
+    setFilterGuest(true);
+    openDrawer();
+  };
+  const OpenMoreFilter = () => {
+    setFilterGuest(false);
+    openDrawer();
+  };
+
+  const closeDrawer = () => {
+    Animated.parallel([
+      Animated.timing(topBarAnimation, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+      Animated.timing(drawerAnimation, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: false,
+      }),
+    ]).start(() => {
+      setDrawerOpen(false);
+    });
+  };
+
+  const drawerTranslateX = drawerAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [300, 0],
+  });
+
+  const topBarHeight = topBarAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 50],
+  });
+
   return (
-    <View style={{margin: 16}}>
-      <TouchableOpacity>
-        <View style={styles.searchWidget}>
-          <Image
-            source={require('../../assets/images/point.png')}
-            style={styles.searchIcon}
-          />
-          <Text style={styles.searchLabel}>Dubai, United Arab Emirates</Text>
+    <View style={styles.container}>
+      <Animated.View style={[styles.topBar, {height: topBarHeight}]}>
+        <Text style={styles.topBarText}>{filterGuest?"Number of Guest":"Search Yachts"}</Text>
+      </Animated.View>
+      <View style={{flex: 1, margin: 16}}>
+        <TouchableOpacity>
+          <View style={[styles.searchWidget, {backgroundColor: '#f5f5f5'}]}>
+            <Image
+              source={require('../../assets/images/point.png')}
+              style={styles.searchIcon}
+            />
+            <Text style={styles.searchLabel}>Dubai, United Arab Emirates</Text>
+          </View>
+        </TouchableOpacity>
+        <Space height={20} />
+        <View style={styles.searchItems}>
+          <TouchableOpacity>
+            <View style={styles.searchWidget}>
+              <Text style={styles.searchItem}>Dates</Text>
+            </View>
+          </TouchableOpacity>
+          <Space width={8} />
+          <TouchableOpacity onPress={OpenGuestFilter}>
+            <View style={styles.searchWidget}>
+              <Text style={styles.searchItem}>Guests</Text>
+            </View>
+          </TouchableOpacity>
+          <Space width={8} />
+          <TouchableOpacity onPress={OpenMoreFilter}>
+            <View style={styles.searchWidget}>
+              <Text style={styles.searchItem}>More Filters</Text>
+            </View>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
-      <Space height={20} />
-      <View style={styles.searchItems}>
-        <TouchableOpacity>
-          <View style={styles.searchWidget}>
-            <Text style={styles.searchItem}>Dates</Text>
-          </View>
-        </TouchableOpacity>
-        <Space width={8} />
-        <TouchableOpacity>
-          <View style={styles.searchWidget}>
-            <Text style={styles.searchItem}>Guests</Text>
-          </View>
-        </TouchableOpacity>
-        <Space width={8} />
-        <TouchableOpacity>
-          <View style={styles.searchWidget}>
-            <Text style={styles.searchItem}>More Filters</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-      <Space height={20} />
-      <View
-        style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-        }}>
-        <Text style={{color: 'black', fontSize: 20}}>100+ Boats Available</Text>
-        <TouchableOpacity>
-          <Image
-            source={require('../../assets/images/sort.png')}
-            style={{width: 24, height: 24}}
-          />
-        </TouchableOpacity>
-      </View>
-      <View>
+        <Space height={20} />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <Text style={{color: 'black', fontSize: 20}}>
+            100+ Boats Available
+          </Text>
+          <TouchableOpacity>
+            <Image
+              source={require('../../assets/images/sort.png')}
+              style={{width: 24, height: 24}}
+            />
+          </TouchableOpacity>
+        </View>
         <Space height={10} />
-        <YachtCard
-          onPress={() => {
-            navigation.navigate('Info');
-          }}
-        />
+        <YachtCard />
         <Space height={30} />
-        <YachtCard
-          onPress={() => {
-            navigation.navigate('Info');
-          }}
-        />
+        <YachtCard />
         <Space height={30} />
-        <YachtCard
-          onPress={() => {
-            navigation.navigate('Info');
-          }}
-        />
-        <Space height={30} />
+        <YachtCard />
       </View>
+      {drawerOpen && (
+        <View style={styles.drawerOverlay}>
+          <Animated.View
+            style={[
+              styles.drawerContent,
+              {transform: [{translateX: drawerTranslateX}]},
+            ]}
+            ref={drawerRef}>
+            <View style={styles.drawerTopBar}>
+              <Text style={styles.drawerTopBarText}></Text>
+            </View>
+            <View style={styles.drawerBody}>
+              {filterGuest ? (
+                <GuestFilter closeDrawer={closeDrawer} />
+              ) : (
+                <MoreFilter closeDrawer={closeDrawer} />
+              )}
+            </View>
+          </Animated.View>
+        </View>
+      )}
     </View>
   );
 };
@@ -88,107 +159,79 @@ const Filter = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    // alignItems: 'center',
+    justifyContent: 'center',
   },
-  contentContainer: {
-    flexGrow: 1,
-    overflow: 'scroll',
+  button: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
   },
-  bottomBar: {
-    flexDirection: 'row',
-    height: 80,
-    backgroundColor: 'white',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
-  },
-  topSection: {
-    height: 260,
-    backgroundColor: '#246bbc',
-  },
-  locationSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    padding: 16,
-  },
-  icon: {
-    width: 40,
-    height: 40,
-  },
-  left: {
-    flex: 1,
-  },
-  right: {
-    flex: 0,
-    marginRight: 8,
-  },
-  locationText: {
-    paddingHorizontal: 8,
-  },
-  location: {
-    color: '#ffffff',
-  },
-  label: {
-    paddingLeft: 16,
-  },
-  searchField: {
-    marginHorizontal: 24,
-    backgroundColor: 'white',
-    height: 50,
-    borderRadius: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  searchIcon: {
-    marginVertical: 16,
-    marginHorizontal: 8,
-    width: 20,
-    height: 20,
-  },
-  searchLabel: {
-    marginVertical: 16,
-    color: '#000000',
+  buttonText: {
+    color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
   },
-  main: {
-    backgroundColor: '#eeeeee',
-    paddingHorizontal: 24,
-    paddingVertical: 32,
+  topBar: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 12,
   },
-  carousel: {
-    flexGrow: 1,
-    flexDirection: 'row',
-    overflow: 'scroll',
+  topBarText: {
+    color: 'black',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-  image: {
-    width: 160,
-    height: 120,
-    borderRadius: 10,
+  mainScreen: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textAlignCenter: {
-    textAlign: 'center',
+  drawerOverlay: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    zIndex: 1,
   },
-  card: {
-    height: 340,
-    borderRadius: 10,
-    backgroundColor: '#ffffff',
+  drawerContent: {
+    backgroundColor: 'white',
+    width: '84%',
+    height: '100%',
   },
-  cardImage: {
-    borderTopLeftRadius: 10,
-    borderTopRightRadius: 10,
-    height: 170,
+  drawerTopBar: {
+    height: 50,
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  cardInfo: {
+  drawerTopBarText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  drawerBody: {
+    flex: 1,
     padding: 10,
   },
+
   searchWidget: {
-    backgroundColor: '#f5f5f5',
     borderColor: '#A9B4BE',
     borderWidth: 1,
     borderRadius: 10,
@@ -204,43 +247,18 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
   },
-  drawerButton: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    alignItems: 'center',
+  searchIcon: {
+    marginVertical: 16,
+    marginHorizontal: 8,
+    width: 20,
+    height: 20,
   },
-  drawerButtonText: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  drawerContainer: {
-    flex: 1,
-    flexDirection: 'row-reverse',
-  },
-  drawer: {
-    width: 0,
-    backgroundColor: '#f1f1f1',
-    borderLeftWidth: 1,
-    borderLeftColor: '#ccc',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  drawerItem: {
-    paddingVertical: 8,
-  },
-  drawerItemText: {
+  searchLabel: {
+    marginVertical: 16,
+    color: '#000000',
     fontSize: 16,
-  },
-  mainContent: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  mask: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    fontWeight: 'bold',
   },
 });
 
-export default Filter;
+export default MainScreen;

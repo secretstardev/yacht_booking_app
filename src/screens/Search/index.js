@@ -14,7 +14,7 @@ import Home from './home';
 import Filter from './filter';
 
 const Search = ({navigation}) => {
-  const [isHome, setIsHome] = useState(true);
+  const [isHome, setIsHome] = useState(false);
 
   return (
     <View style={styles.container}>
@@ -32,60 +32,60 @@ const Search = ({navigation}) => {
           onPress={() => {
             navigation.navigate('Favourite');
           }}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{width: 60, alignItems: 'center'}}>
             <Image
               source={require('../../assets/images/heart.png')}
               style={{width: 22, height: 22}}
             />
-            <Text style={{fontSize: 13}}>Favourites</Text>
+            <Text style={{fontSize: 12}}>Favourites</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Message');
           }}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{width: 60, alignItems: 'center'}}>
             <Image
               source={require('../../assets/images/message.png')}
               style={{width: 24, height: 22}}
             />
-            <Text style={{fontSize: 13}}>Messages</Text>
+            <Text style={{fontSize: 12}}>Messages</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Search');
           }}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{width: 60, alignItems: 'center'}}>
             <Image
               source={require('../../assets/images/search_focus.png')}
               style={{width: 20, height: 22}}
             />
-            <Text style={{fontSize: 13, color: '#246bbc'}}>Search</Text>
+            <Text style={{fontSize: 12, color: '#246bbc'}}>Search</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Booking');
           }}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{width: 60, alignItems: 'center'}}>
             <Image
               source={require('../../assets/images/book.png')}
               style={{width: 22, height: 22}}
             />
-            <Text style={{fontSize: 13}}>Bookings</Text>
+            <Text style={{fontSize: 12}}>Bookings</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('Profile');
           }}>
-          <View style={{alignItems: 'center'}}>
+          <View style={{width: 60, alignItems: 'center'}}>
             <Image
               source={require('../../assets/images/profile.png')}
               style={{width: 15, height: 22}}
             />
-            <Text style={{fontSize: 13}}>Profile</Text>
+            <Text style={{fontSize: 12}}>Profile</Text>
           </View>
         </TouchableOpacity>
       </View>
