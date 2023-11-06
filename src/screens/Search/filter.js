@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Animated,
   Image,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import Space from '../../components/Space';
@@ -20,6 +21,11 @@ const MainScreen = ({navigation}) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerAnimation = useRef(new Animated.Value(0)).current;
   const topBarAnimation = useRef(new Animated.Value(0)).current;
+  const [showSortingSection, setShowSortingSection] = useState(false);
+
+  const handleSortIconClick = () => {
+    setShowSortingSection(!showSortingSection);
+  };
 
   const openDrawer = () => {
     setDrawerOpen(true);
@@ -76,7 +82,9 @@ const MainScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Animated.View style={[styles.topBar, {height: topBarHeight}]}>
-        <Text style={styles.topBarText}>{filterGuest?"Number of Guest":"Search Yachts"}</Text>
+        <Text style={styles.topBarText}>
+          {filterGuest ? 'Number of Guest' : 'Search Yachts'}
+        </Text>
       </Animated.View>
       <View style={{flex: 1, margin: 16}}>
         <TouchableOpacity>
@@ -117,12 +125,66 @@ const MainScreen = ({navigation}) => {
           <Text style={{color: 'black', fontSize: 20}}>
             100+ Boats Available
           </Text>
-          <TouchableOpacity>
-            <Image
-              source={require('../../assets/images/sort.png')}
-              style={{width: 24, height: 24}}
-            />
-          </TouchableOpacity>
+          <View style={{position: 'relative'}}>
+            <TouchableOpacity onPress={handleSortIconClick}>
+              <Image
+                source={require('../../assets/images/sort.png')}
+                style={{width: 24, height: 24}}
+              />
+            </TouchableOpacity>
+            {showSortingSection ? (
+              <View
+                style={{
+                  backgroundColor: 'white',
+                  width: 120,
+                  position: 'absolute',
+                  right: 10,
+                  top: 10,
+                  zIndex: 1,
+                  borderRadius: 10,
+                  borderColor: 'black',
+                  backgroundColor: '#ffffff',
+                  shadowColor: '#000',
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 15,
+                }}>
+                <TouchableOpacity
+                  onPress={handleSortIconClick}
+                  style={{
+                    borderBottomColor: 'rgba(0,0,0,0.75)',
+                    borderBottomWidth: 1,
+                    padding: 8,
+                  }}>
+                  <Text style={{fontSize: 16, color: 'black'}}>Newest</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleSortIconClick}
+                  style={{
+                    borderBottomColor: 'rgba(0,0,0,0.75)',
+                    borderBottomWidth: 1,
+                    padding: 8,
+                  }}>
+                  <Text style={{fontSize: 16, color: 'black'}}>
+                    Highest Price
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={handleSortIconClick}
+                  style={{padding: 8}}>
+                  <Text style={{fontSize: 16, color: 'black'}}>
+                    Lowest Price
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            ) : (
+              <></>
+            )}
+          </View>
         </View>
         <Space height={10} />
         <YachtCard />

@@ -86,7 +86,7 @@ const GuestFilter = props => {
             justifyContent: 'center',
             alignItems: 'center',
           }}>
-          <TextButton title="Search" style={{width: 80, height: 40}} />
+          <TextButton title="Search" style={{width: 80, height: 40}} enable={true}/>
         </View>
       </View>
     </View>

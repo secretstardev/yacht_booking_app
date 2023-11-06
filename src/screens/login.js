@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -6,7 +6,9 @@ import {
   Image,
   Button,
   ImageBackground,
+  ScrollView,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 
 import CheckBox from 'expo-checkbox';
@@ -16,68 +18,127 @@ import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
 const LoginScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
+  const [validated, setValidated] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordValid, setPasswordValid] = useState(false);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const validation = () => {
+    if (email == '') {
+      setEmailValid(false);
+      setValidated(false);
+    } else {
+      if (emailRegex.test(email) == false) {
+        setEmailValid(false);
+        setValidated(false);
+      } else {
+        setEmailValid(true);
+      }
+    }
+
+    if (password == '') {
+      setPasswordValid(false);
+      setValidated(false);
+    } else {
+      setPasswordValid(true);
+    }
+
+    if (emailValid && passwordValid) {
+      setValidated(true);
+    }
+    return;
+  };
+  useEffect(() => {
+    validation();
+  }, [email, password]);
 
   return (
     <ImageBackground
       source={require('../assets/images/welcome.png')}
       style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <Image
-          source={require('../assets/images/logo_1.png')}
-          style={styles.logo}
-        />
-        <Space height={20} />
-        <Text style={styles.title}>Welcome Back</Text>
-        <Space height={10} />
-        <Text style={styles.description}>
-          Do not have an account?{' '}
-          <Text
-            style={styles.register}
-            onPress={() => {
-              navigation.navigate('Register');
-            }}>
-            Register
-          </Text>
-        </Text>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate('Welcome');
+          }}>
+            <Image
+              source={require('../assets/images/back.png')}
+              style={{width: 40, height: 40}}
+            />
+          </TouchableOpacity>
+          <Space height={40} />
 
-        <Space height={30} />
-        <IconTextInput
-          placeholder="Email Address"
-          image={require('../assets/images/email.png')}
-        />
-        <Space height={20} />
-        <IconTextInput
-          placeholder="Password"
-          image={require('../assets/images/lock.png')}
-          secureTextEntry={true}
-        />
-        <Space height={20} />
-        <View style={styles.floatContainer}>
-          <View style={styles.left}>
-            <View style={styles.row}>
-              <CheckBox
-                color="#246bbc"
-                disabled={false}
-                value={toggleCheckBox}
-                onValueChange={newValue => setToggleCheckBox(newValue)}
-              />
-              <Text> Remeber Password</Text>
+          <Image
+            source={require('../assets/images/logo_1.png')}
+            style={styles.logo}
+          />
+          <Space height={20} />
+          <Text style={styles.title}>Welcome Back</Text>
+          <Space height={10} />
+          <Text style={styles.description}>
+            Do not have an account?{' '}
+            <Text
+              style={styles.register}
+              onPress={() => {
+                navigation.navigate('Register');
+              }}>
+              Register
+            </Text>
+          </Text>
+
+          <Space height={30} />
+          <IconTextInput
+            placeholder="Email Address"
+            image={require('../assets/images/email.png')}
+            value={email}
+            onChangeText={setEmail}
+            valid={emailValid}
+          />
+          <Space height={20} />
+          <IconTextInput
+            placeholder="Password"
+            image={require('../assets/images/lock.png')}
+            value={password}
+            onChangeText={setPassword}
+            valid={passwordValid}
+            secureTextEntry={true}
+          />
+          <Space height={20} />
+          <View style={styles.floatContainer}>
+            <View style={styles.left}>
+              <View style={styles.row}>
+                <CheckBox
+                  color="#246bbc"
+                  disabled={false}
+                  value={toggleCheckBox}
+                  onValueChange={newValue => setToggleCheckBox(newValue)}
+                />
+                <Text> Remeber Password</Text>
+              </View>
+            </View>
+            <View style={styles.right}>
+              <Text>Forgot password?</Text>
             </View>
           </View>
-          <View style={styles.right}>
-            <Text>Forgot password?</Text>
-          </View>
-        </View>
-        <Space height={30} />
+          <Space height={30} />
 
-        <TextButton
-          title="Login"
-          onPress={() => {
-            navigation.navigate('Search');
-          }}
-        />
-        <Space height={30} />
-      </View>
+          <TextButton
+            title="Login"
+            fontSize={16}
+            enable={validated}
+            onPress={() => {
+              navigation.navigate('Search');
+            }}
+          />
+          <Space height={30} />
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -92,6 +153,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 16,
   },
+  scrollContainer: {flexGrow: 1, overflow: 'scroll'},
+
   logo: {
     width: 100,
     height: 100,

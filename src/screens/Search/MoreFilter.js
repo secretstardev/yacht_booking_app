@@ -60,6 +60,7 @@ const MoreFilter = props => {
             title="Motorboat"
             style={{width: 84, height: 30}}
             isOutline={type == 0 ? false : true}
+            enable={true}
             onPress={() => {
               setType(0);
             }}
@@ -68,6 +69,7 @@ const MoreFilter = props => {
             title="Sailboat"
             style={{width: 84, height: 30}}
             isOutline={type == 1 ? false : true}
+            enable={true}
             onPress={() => {
               setType(1);
             }}
@@ -76,6 +78,7 @@ const MoreFilter = props => {
             title="Catamaran"
             style={{width: 84, height: 30}}
             isOutline={type == 2 ? false : true}
+            enable={true}
             onPress={() => {
               setType(2);
             }}
@@ -92,6 +95,7 @@ const MoreFilter = props => {
             title="RIB"
             style={{width: 84, height: 30}}
             isOutline={type == 3 ? false : true}
+            enable={true}
             onPress={() => {
               setType(3);
             }}
@@ -100,6 +104,7 @@ const MoreFilter = props => {
             title="Yacht"
             style={{width: 84, height: 30}}
             isOutline={type == 4 ? false : true}
+            enable={true}
             onPress={() => {
               setType(4);
             }}
@@ -108,6 +113,7 @@ const MoreFilter = props => {
             title="Houseboat"
             style={{width: 84, height: 30}}
             isOutline={type == 5 ? false : true}
+            enable={true}
             onPress={() => {
               setType(5);
             }}
@@ -123,6 +129,7 @@ const MoreFilter = props => {
             title="Jetski"
             style={{width: 84, height: 30}}
             isOutline={type == 6 ? false : true}
+            enable={true}
             onPress={() => {
               setType(6);
             }}
@@ -173,6 +180,7 @@ const MoreFilter = props => {
             title="2 hrs"
             style={{width: 84, height: 30}}
             isOutline={duration == 2 ? false : true}
+            enable={true}
             onPress={() => {
               setDuration(2);
             }}
@@ -181,6 +189,7 @@ const MoreFilter = props => {
             title="3 hrs"
             style={{width: 84, height: 30}}
             isOutline={duration == 3 ? false : true}
+            enable={true}
             onPress={() => {
               setDuration(3);
             }}
@@ -189,6 +198,7 @@ const MoreFilter = props => {
             title="4 hrs"
             style={{width: 84, height: 30}}
             isOutline={duration == 4 ? false : true}
+            enable={true}
             onPress={() => {
               setDuration(4);
             }}
@@ -204,6 +214,7 @@ const MoreFilter = props => {
             title="6 hrs"
             style={{width: 84, height: 30}}
             isOutline={duration == 6 ? false : true}
+            enable={true}
             onPress={() => {
               setDuration(6);
             }}
@@ -212,6 +223,7 @@ const MoreFilter = props => {
             title="8 hrs"
             style={{width: 84, height: 30}}
             isOutline={duration == 8 ? false : true}
+            enable={true}
             onPress={() => {
               setDuration(8);
             }}
@@ -240,6 +252,7 @@ const MoreFilter = props => {
             title="Captain"
             style={{width: 84, height: 30}}
             isOutline={captain ? false : true}
+            enable={true}
             onPress={() => {
               setCaptain(true);
             }}
@@ -248,6 +261,7 @@ const MoreFilter = props => {
             title="No Captain"
             style={{width: 84, height: 30}}
             isOutline={!captain ? false : true}
+            enable={true}
             onPress={() => {
               setCaptain(false);
             }}

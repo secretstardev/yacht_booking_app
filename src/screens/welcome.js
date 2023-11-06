@@ -46,6 +46,8 @@ const WelcomeScreen = ({navigation}) => {
             <Space height={30} />
             <TextButton
               title="Continue with email"
+              fontSize={16}
+              enable={true}
               onPress={() => {
                 navigation.navigate('Register');
               }}
@@ -129,6 +131,8 @@ const styles = StyleSheet.create({
 export default WelcomeScreen;
 
 const BottomModal = ({visible, onClose}) => {
+  const [face, setFace] = useState(false);
+
   const styles = StyleSheet.create({
     overlay: {
       flex: 1,
@@ -138,10 +142,13 @@ const BottomModal = ({visible, onClose}) => {
     modalContainer: {
       backgroundColor: 'white',
       padding: 16,
-      // borderTopLeftRadius: 10,
-      // borderTopRightRadius: 10,
     },
   });
+
+  const resetFace = () => {
+    setFace(false);
+    onClose();
+  };
   return (
     <Modal animationType="slide" transparent={true} visible={visible}>
       <View style={styles.overlay}>
@@ -149,11 +156,11 @@ const BottomModal = ({visible, onClose}) => {
           <View>
             <View
               style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text>Apple ID</Text>
-              <TouchableOpacity onPress={onClose}>
+              <Text style={{fontSize: 18}}>Apple ID</Text>
+              <TouchableOpacity onPress={resetFace}>
                 <Image
-                  source={require('../assets/images/no.png')}
-                  style={[styles.logo, {width: 16, height: 16}]}
+                  source={require('../assets/images/close.png')}
+                  style={[styles.logo, {width: 24, height: 24}]}
                 />
               </TouchableOpacity>
             </View>
@@ -172,14 +179,31 @@ const BottomModal = ({visible, onClose}) => {
                 }
               </Text>
             </View>
+            <Space height={4} />
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-              <TextButton
-                title="Continue"
-                style={{width: 100, height: 48}}
-                onPress={() => {}}
-              />
+              {face ? (
+                <View>
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../assets/images/face.png')}
+                      style={[styles.logo, {width: 40, height: 40}]}
+                    />
+                  </TouchableOpacity>
+                  <Text style={{textAlign: 'center'}}>{'Face \nID'}</Text>
+                </View>
+              ) : (
+                <TextButton
+                  title="Continue"
+                  fontSize={16}
+                  enable={true}
+                  style={{paddingHorizontal: 32, height: 48}}
+                  onPress={() => {
+                    setFace(true);
+                  }}
+                />
+              )}
             </View>
-            <Space height={16} />
+            <Space height={8} />
           </View>
         </View>
       </View>

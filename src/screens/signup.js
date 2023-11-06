@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -7,7 +7,9 @@ import {
   Button,
   ImageBackground,
   StyleSheet,
-  KeyboardAvoidingView 
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 import CheckBox from 'expo-checkbox';
@@ -18,53 +20,136 @@ import IconTextInput from '../components/IconTextInput';
 const RegisterScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
+  const [validated, setValidated] = useState(false);
+
+  const [fullName, setFullName] = useState('');
+  const [fullNameValid, setFullNameValid] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [emailValid, setEmailValid] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordValid, setPasswordValid] = useState(false);
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const fullNameRegex = /^[a-zA-Z]+ [a-zA-Z]+$/;
+
+  const validation = () => {
+    if (fullName == '') {
+      setFullNameValid(false);
+      setValidated(false);
+    } else {
+      if (fullNameRegex.test(fullName) == false) {
+        setFullNameValid(false);
+        setValidated(false);
+      } else {
+        setFullNameValid(true);
+      }
+    }
+
+    if (email == '') {
+      setEmailValid(false);
+      setValidated(false);
+    } else {
+      if (emailRegex.test(email) == false) {
+        setEmailValid(false);
+        setValidated(false);
+      } else {
+        setEmailValid(true);
+      }
+    }
+
+    if (password == '') {
+      setPasswordValid(false);
+      setValidated(false);
+    } else {
+      setPasswordValid(true);
+    }
+
+    if (fullNameValid && emailValid && passwordValid) {
+      setValidated(true);
+    }
+    return;
+  };
+  useEffect(() => {
+    validation();
+  }, [fullName, email, password]);
+
   return (
     <ImageBackground
       source={require('../assets/images/welcome.png')}
       style={styles.backgroundImage}>
-      <View style={styles.container}>
-        <Image
-          source={require('../assets/images/logo_1.png')}
-          style={styles.logo}
-        />
-        <Space height={20} />
-        <Text style={styles.title}>Create your new account</Text>
-        <Space height={10} />
-        <Text style={styles.description}>
-          Already have an account? <Text style={styles.register} onPress={() => {
-              navigation.navigate('Login');
-            }}>Login</Text>
-        </Text>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}>
+        <View style={styles.container}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Welcome');
+            }}>
+            <Image
+              source={require('../assets/images/back.png')}
+              style={{width: 40, height: 40}}
+            />
+          </TouchableOpacity>
+          <Image
+            source={require('../assets/images/logo_1.png')}
+            style={styles.logo}
+          />
+          <Space height={20} />
+          <Text style={styles.title}>Create your new account</Text>
+          <Space height={10} />
+          <Text style={styles.description}>
+            Already have an account?{' '}
+            <Text
+              style={styles.register}
+              onPress={() => {
+                navigation.navigate('Login');
+              }}>
+              Login
+            </Text>
+          </Text>
 
-        <Space height={30} />
-        <IconTextInput
-          placeholder="Full Name"
-          image={require('../assets/images/user.png')}
-        />
-        <Space height={20} />
-        <IconTextInput
-          placeholder="Email Address"
-          image={require('../assets/images/email.png')}
-        />
-        <Space height={20} />
-        <IconTextInput
-          placeholder="Password"
-          image={require('../assets/images/lock.png')}
-          secureTextEntry={true}
-        />
-        <Space height={20} />
-        <TextButton
-          title="Continue with email"
-          onPress={() => {
-            navigation.navigate('Login');
-          }}
-        />
-        <Text style={styles.description}>
-          By tapping continue i agree to the{' '}
-          <Text style={styles.terms}>Terms of service.</Text>
-        </Text>
-        <Space height={10} />
-      </View>
+          <Space height={30} />
+          <IconTextInput
+            placeholder="Full Name"
+            image={require('../assets/images/user.png')}
+            value={fullName}
+            onChangeText={setFullName}
+            valid={fullNameValid}
+          />
+          <Space height={20} />
+          <IconTextInput
+            placeholder="Email Address"
+            image={require('../assets/images/email.png')}
+            value={email}
+            onChangeText={setEmail}
+            valid={emailValid}
+          />
+          <Space height={20} />
+          <IconTextInput
+            placeholder="Password"
+            image={require('../assets/images/lock.png')}
+            value={password}
+            onChangeText={setPassword}
+            valid={passwordValid}
+            secureTextEntry={true}
+          />
+          <Space height={20} />
+          <TextButton
+            title="Continue with email"
+            fontSize={16}
+            enable={validated}
+            onPress={() => {
+              navigation.navigate('Login');
+            }}
+          />
+          <Text style={styles.description}>
+            By tapping continue i agree to the{' '}
+            <Text style={styles.terms}>Terms of service.</Text>
+          </Text>
+          <Space height={10} />
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
@@ -79,6 +164,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 16,
   },
+  scrollContainer: {flexGrow: 1, overflow: 'scroll'},
   logo: {
     width: 100,
     height: 100,
@@ -140,8 +226,8 @@ const styles = StyleSheet.create({
     color: '#424242',
   },
   terms: {
-    color: '#246bbc'
-  }
+    color: '#246bbc',
+  },
 });
 
 export default RegisterScreen;

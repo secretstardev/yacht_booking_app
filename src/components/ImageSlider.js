@@ -7,7 +7,16 @@ const ImageSlider = props => {
   const renderImageSlide = imageLink => {
     return (
       <View style={styles.slide}>
-        <Image source={imageLink} style={styles.image} />
+        <Image
+          source={imageLink}
+          resizeMode='cover'
+          style={[
+            styles.image,
+            props.isCard
+              ? {borderTopLeftRadius: 20, borderTopRightRadius: 20}
+              : {},
+          ]}
+        />
       </View>
     );
   };

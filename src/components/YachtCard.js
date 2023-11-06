@@ -1,23 +1,26 @@
-import {View, Text, StyleSheet, Pressable, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 
 import Space from '../components/Space';
 import {Image} from 'react-native-elements';
 import ImageSlider from './ImageSlider';
 
-const YachtCard = (props) => {
+const YachtCard = props => {
   return (
     <View style={styles.card}>
-      <View
-        style={{
-          borderTopLeftRadius: 10,
-          borderTopRightRadius: 10,
-        }}>
+      <View>
         <ImageSlider
           imageLinks={[
             require('../assets/images/yacht_2.png'),
             require('../assets/images/yacht_3.png'),
             require('../assets/images/yacht_1.png'),
           ]}
+          isCard={true}
           height={170}
           radius={true}
         />
@@ -80,7 +83,7 @@ const YachtCard = (props) => {
 const styles = StyleSheet.create({
   card: {
     height: 320,
-    borderRadius: 10,
+    borderRadius: 20,
     backgroundColor: '#ffffff',
     shadowColor: '#000',
     shadowOffset: {

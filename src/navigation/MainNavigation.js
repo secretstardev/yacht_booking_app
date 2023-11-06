@@ -28,7 +28,7 @@ const MainNavigator = ({parentNavigator}) => {
     <NavigationContainer>
       <>
         <Stack.Navigator
-          initialRouteName={'Welcome'}
+          initialRouteName={'Search'}
           screenOptions={{headerShown: false}}>
           <>
             <Stack.Screen name="Splash" component={SplashScreen} />
