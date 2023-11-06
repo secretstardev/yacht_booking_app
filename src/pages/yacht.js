@@ -26,6 +26,16 @@ const Yacht = ({navigation}) => {
             require('../assets/images/yacht_2.png'),
           ]}
         />
+        <TouchableOpacity
+          style={{position: 'absolute', left: 20, top: 30}}
+          onPress={() => {
+            navigation.pop();
+          }}>
+          <Image
+            source={require('../assets/images/arrow_left.png')}
+            style={{width: 30, height: 30}}
+          />
+        </TouchableOpacity>
         <View style={{margin: 16}}>
           <View style={styles.float}>
             <View>

@@ -48,8 +48,20 @@ const Chat = ({navigation}) => {
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={styles.chatContainer}>
-        
+        <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
+          <View
+            style={{
+              width: '86%',
+              height: 10,
+              borderBottomColor: 'gray',
+              borderBottomWidth: 1,
+              marginHorizontal: 10,
+              paddingHorizontal: 10,
+            }}></View>
+          <Text>TODAY</Text>
+        </View>
         <Space height={16} />
+
         {chatData.map((chat, index) => (
           <View key={index}>
             <View
@@ -84,9 +96,34 @@ const Chat = ({navigation}) => {
                   {chat.message}
                 </Text>
                 <Space height={4} />
-                <Text style={chat.isSent ? styles.sentTime : styles.getTime}>
-                  11:00am
-                </Text>
+                {chat.isSent ? (
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                    }}>
+                    <View></View>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Text
+                        style={chat.isSent ? styles.sentTime : styles.getTime}>
+                        11:00am
+                      </Text>
+                      <Space width={chat.isSent ? 4 : 0} />
+                      {chat.isSent ? (
+                        <Image
+                          source={require('../assets/images/doublecheck.png')}
+                          style={styles.sentTime}
+                        />
+                      ) : (
+                        <></>
+                      )}
+                    </View>
+                  </View>
+                ) : (
+                  <Text style={chat.isSent ? styles.sentTime : styles.getTime}>
+                    11:00am
+                  </Text>
+                )}
               </View>
             </View>
 
@@ -147,6 +184,8 @@ const styles = StyleSheet.create({
   chatContainer: {
     flexGrow: 1,
     justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+
   },
   sentMessageContainer: {
     width: '60%',

@@ -138,7 +138,7 @@ const Search = ({navigation}) => {
                   translateX: drawerTranslateX,
                 },
               ],
-              zIndex: 100,
+              // zIndex: 100,
             },
           ]}>
           <TouchableOpacity style={styles.drawerItem}>

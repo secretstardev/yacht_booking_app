@@ -6,7 +6,10 @@ import {
   StyleSheet,
   Animated,
   Image,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  TextInput,
+  ScrollView,
+  PanResponder,
 } from 'react-native';
 
 import Space from '../../components/Space';
@@ -15,20 +18,30 @@ import YachtCard from '../../components/YachtCard';
 import GuestFilter from './GuestFilter';
 import MoreFilter from './MoreFilter';
 
-const MainScreen = ({navigation}) => {
+const Filter = ({navigation, setScrollStatus}) => {
   const [filterGuest, setFilterGuest] = useState(false);
   const drawerRef = useRef(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const drawerAnimation = useRef(new Animated.Value(0)).current;
   const topBarAnimation = useRef(new Animated.Value(0)).current;
   const [showSortingSection, setShowSortingSection] = useState(false);
-
+  const [location, setLocation] = useState('');
+  const sliderRef = useRef(null);
+  const [slideEnabled, setSlideEnabled] = useState(true);
   const handleSortIconClick = () => {
     setShowSortingSection(!showSortingSection);
   };
 
+  const handleOutsideClick = () => {
+    setShowSortingSection(false);
+  };
+
   const openDrawer = () => {
+    handleOutsideClick(false);
     setDrawerOpen(true);
+    setScrollStatus(false);
+    setSlideEnabled(false);
+
     Animated.parallel([
       Animated.timing(topBarAnimation, {
         toValue: 1,
@@ -66,6 +79,8 @@ const MainScreen = ({navigation}) => {
       }),
     ]).start(() => {
       setDrawerOpen(false);
+      setScrollStatus(true);
+      setSlideEnabled(true);
     });
   };
 
@@ -79,142 +94,166 @@ const MainScreen = ({navigation}) => {
     outputRange: [0, 50],
   });
 
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderGrant: () => {
+      // Disable scrolling for the main screen
+      setScrollStatus(false);
+      console.log("false");
+    },
+    onPanResponderRelease: () => {
+      console.log("true");
+      // Enable scrolling for the main screen
+      setScrollStatus(true);
+    },
+  });
+
   return (
-    <View style={styles.container}>
-      <Animated.View style={[styles.topBar, {height: topBarHeight}]}>
-        <Text style={styles.topBarText}>
-          {filterGuest ? 'Number of Guest' : 'Search Yachts'}
-        </Text>
-      </Animated.View>
-      <View style={{flex: 1, margin: 16}}>
-        <TouchableOpacity>
-          <View style={[styles.searchWidget, {backgroundColor: '#f5f5f5'}]}>
-            <Image
-              source={require('../../assets/images/point.png')}
-              style={styles.searchIcon}
-            />
-            <Text style={styles.searchLabel}>Dubai, United Arab Emirates</Text>
-          </View>
-        </TouchableOpacity>
-        <Space height={20} />
-        <View style={styles.searchItems}>
-          <TouchableOpacity>
-            <View style={styles.searchWidget}>
-              <Text style={styles.searchItem}>Dates</Text>
-            </View>
-          </TouchableOpacity>
-          <Space width={8} />
-          <TouchableOpacity onPress={OpenGuestFilter}>
-            <View style={styles.searchWidget}>
-              <Text style={styles.searchItem}>Guests</Text>
-            </View>
-          </TouchableOpacity>
-          <Space width={8} />
-          <TouchableOpacity onPress={OpenMoreFilter}>
-            <View style={styles.searchWidget}>
-              <Text style={styles.searchItem}>More Filters</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <Space height={20} />
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-          }}>
-          <Text style={{color: 'black', fontSize: 20}}>
-            100+ Boats Available
+    <TouchableWithoutFeedback onPress={handleOutsideClick}>
+      <View style={styles.container}>
+        <Animated.View style={[styles.topBar, {height: topBarHeight}]}>
+          <Text style={styles.topBarText}>
+            {filterGuest ? 'Number of Guest' : 'Search Yachts'}
           </Text>
-          <View style={{position: 'relative'}}>
-            <TouchableOpacity onPress={handleSortIconClick}>
+        </Animated.View>
+        <View style={{flex: 1, margin: 16}}>
+          <TouchableOpacity>
+            <View style={[styles.searchWidget, {backgroundColor: '#f5f5f5'}]}>
               <Image
-                source={require('../../assets/images/sort.png')}
-                style={{width: 24, height: 24}}
+                source={require('../../assets/images/point.png')}
+                style={styles.searchIcon}
               />
-            </TouchableOpacity>
-            {showSortingSection ? (
-              <View
-                style={{
-                  backgroundColor: 'white',
-                  width: 120,
-                  position: 'absolute',
-                  right: 10,
-                  top: 10,
-                  zIndex: 1,
-                  borderRadius: 10,
-                  borderColor: 'black',
-                  backgroundColor: '#ffffff',
-                  shadowColor: '#000',
-                  shadowOffset: {
-                    width: 0,
-                    height: 2,
-                  },
-                  shadowOpacity: 0.25,
-                  shadowRadius: 3.84,
-                  elevation: 15,
-                }}>
-                <TouchableOpacity
-                  onPress={handleSortIconClick}
-                  style={{
-                    borderBottomColor: 'rgba(0,0,0,0.75)',
-                    borderBottomWidth: 1,
-                    padding: 8,
-                  }}>
-                  <Text style={{fontSize: 16, color: 'black'}}>Newest</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleSortIconClick}
-                  style={{
-                    borderBottomColor: 'rgba(0,0,0,0.75)',
-                    borderBottomWidth: 1,
-                    padding: 8,
-                  }}>
-                  <Text style={{fontSize: 16, color: 'black'}}>
-                    Highest Price
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={handleSortIconClick}
-                  style={{padding: 8}}>
-                  <Text style={{fontSize: 16, color: 'black'}}>
-                    Lowest Price
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <></>
-            )}
-          </View>
-        </View>
-        <Space height={10} />
-        <YachtCard />
-        <Space height={30} />
-        <YachtCard />
-        <Space height={30} />
-        <YachtCard />
-      </View>
-      {drawerOpen && (
-        <View style={styles.drawerOverlay}>
-          <Animated.View
-            style={[
-              styles.drawerContent,
-              {transform: [{translateX: drawerTranslateX}]},
-            ]}
-            ref={drawerRef}>
-            <View style={styles.drawerTopBar}>
-              <Text style={styles.drawerTopBarText}></Text>
+              <TextInput
+                style={{fontWeight: 'bold', padding: 0, width: '80%'}}
+                value={location}
+                placeholder="Dubai, United Arab Emirates "
+                onChangeText={setLocation}
+              />
             </View>
-            <View style={styles.drawerBody}>
-              {filterGuest ? (
-                <GuestFilter closeDrawer={closeDrawer} />
+          </TouchableOpacity>
+          <Space height={20} />
+          <View style={styles.searchItems}>
+            <TouchableOpacity>
+              <View style={styles.searchWidget}>
+                <Text style={styles.searchItem}>Dates</Text>
+              </View>
+            </TouchableOpacity>
+            <Space width={8} />
+            <TouchableOpacity onPress={OpenGuestFilter}>
+              <View style={styles.searchWidget}>
+                <Text style={styles.searchItem}>Guests</Text>
+              </View>
+            </TouchableOpacity>
+            <Space width={8} />
+            <TouchableOpacity onPress={OpenMoreFilter}>
+              <View style={styles.searchWidget}>
+                <Text style={styles.searchItem}>More Filters</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <Space height={20} />
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}>
+            <Text style={{color: 'black', fontSize: 20}}>
+              100+ Boats Available
+            </Text>
+            <View style={{position: 'relative'}}>
+              <TouchableOpacity onPress={handleSortIconClick}>
+                <Image
+                  source={require('../../assets/images/sort.png')}
+                  style={{width: 24, height: 24}}
+                />
+              </TouchableOpacity>
+              {showSortingSection ? (
+                <View
+                  style={{
+                    backgroundColor: 'white',
+                    width: 120,
+                    position: 'absolute',
+                    right: 10,
+                    top: 10,
+                    zIndex: 1,
+                    borderRadius: 10,
+                    borderColor: 'black',
+                    backgroundColor: '#ffffff',
+                    shadowColor: '#000',
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 15,
+                  }}>
+                  <TouchableOpacity
+                    onPress={handleSortIconClick}
+                    style={{
+                      borderBottomColor: 'rgba(0,0,0,0.75)',
+                      borderBottomWidth: 1,
+                      padding: 8,
+                    }}>
+                    <Text style={{fontSize: 16, color: 'black'}}>Newest</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleSortIconClick}
+                    style={{
+                      borderBottomColor: 'rgba(0,0,0,0.75)',
+                      borderBottomWidth: 1,
+                      padding: 8,
+                    }}>
+                    <Text style={{fontSize: 16, color: 'black'}}>
+                      Highest Price
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleSortIconClick}
+                    style={{padding: 8}}>
+                    <Text style={{fontSize: 16, color: 'black'}}>
+                      Lowest Price
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               ) : (
-                <MoreFilter closeDrawer={closeDrawer} />
+                <></>
               )}
             </View>
-          </Animated.View>
+          </View>
+          <Space height={10} />
+          <YachtCard enable={slideEnabled}/>
+          <Space height={30} />
+          <YachtCard enable={slideEnabled}/>
+          <Space height={30} />
+          <YachtCard enable={slideEnabled}/>
         </View>
-      )}
-    </View>
+        {drawerOpen && (
+          <View style={styles.drawerOverlay}>
+            <Animated.View
+              style={[
+                styles.drawerContent,
+                {transform: [{translateX: drawerTranslateX}]},
+              ]}
+              ref={drawerRef}>
+              <View style={styles.drawerTopBar}>
+                <Text style={styles.drawerTopBarText}></Text>
+              </View>
+              <ScrollView
+                ref={sliderRef}
+                {...panResponder.panHandlers}
+                style={styles.drawerBody}>
+                {filterGuest ? (
+                  <GuestFilter closeDrawer={closeDrawer} />
+                ) : (
+                  <MoreFilter closeDrawer={closeDrawer} />
+                )}
+              </ScrollView>
+            </Animated.View>
+          </View>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -251,8 +290,8 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   topBarText: {
-    color: 'black',
-    fontSize: 16,
+    color: 'rgba(0,0,0,0.7)',
+    fontSize: 20,
     fontWeight: 'bold',
   },
   mainScreen: {
@@ -289,8 +328,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   drawerBody: {
+    flexGrow: 1,
+    overflow: 'scroll',
+    // paddingBottom: 160,
+    paddingTop: 10,
+    paddingLeft: 10,
+    paddingRight: 16,
     flex: 1,
-    padding: 10,
+    // padding: 10,
   },
 
   searchWidget: {
@@ -323,4 +368,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MainScreen;
+export default Filter;

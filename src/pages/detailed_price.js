@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -6,6 +6,7 @@ import {
   Image,
   StyleSheet,
   ScrollView,
+  Modal,
 } from 'react-native';
 
 import Space from '../components/Space';
@@ -13,6 +14,12 @@ import TextButton from '../components/TextButton';
 import IconTextButton from '../components/IconTextButton';
 
 const Detailed_Price = ({navigation}) => {
+  const [detail, setDetail] = useState(false);
+
+  const handleDetailIconClick = () => {
+    setDetail(!detail);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -88,10 +95,93 @@ const Detailed_Price = ({navigation}) => {
                   </View>
                 </View>
                 <Space height={16} />
-                <View style={[styles.float, {alignItems: 'center'}]}>
-                  <Text style={{fontSize: 20, color: '#093373'}}>
+                <View style={[styles.float, {alignItems: 'center', position: 'relative'}]}>
+                  <Text style={{fontSize: 20, color: '#093373', }}>
                     Service Fee
                   </Text>
+                  <TouchableOpacity style={{}} onPress={handleDetailIconClick}>
+                    <Image
+                      source={require('../assets/images/info.png')}
+                      style={{width: 16, height: 16, alignItems: 'center'}}
+                    />
+                    {detail ? (
+                      <View
+                        style={{
+                          backgroundColor: 'white',
+                          width: 200,
+                          position: 'absolute',
+                          right: -90,
+                          top: 25,
+                          zIndex: 2,
+                          borderRadius: 10,
+                          borderColor: 'black',
+                          shadowColor: '#000',
+                          shadowOffset: {
+                            width: 10,
+                            height: 1,
+                          },
+                          shadowOpacity: 0.1,
+                          shadowRadius: 3.84,
+                          elevation: 10,
+                          padding: 8,
+                        }}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Crew</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>$902</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Final cleaning</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>$40</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Beach towel</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Bed Linen</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Coffee Machine</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Fishing equipment</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Kayak</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Paddle</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Softly net</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Smoking set</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Towel</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>WiFi</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                          <Text style={{color: 'black', fontSize: 16}}>Windsurf equipment</Text>
+                          <Text style={{color: 'black', fontSize: 16}}>Free</Text>
+                        </View>
+                      </View>
+                    ) : (
+                      <></>
+                    )}
+                  </TouchableOpacity>
                   <View>
                     <Text style={{fontSize: 15, color: '#093373'}}>Aed 10</Text>
                   </View>
@@ -162,7 +252,7 @@ const Detailed_Price = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
+    position: 'relative'
   },
   content: {
     flex: 1,
