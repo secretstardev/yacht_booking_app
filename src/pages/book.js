@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   TouchableOpacity,
@@ -13,6 +13,7 @@ import TextButton from '../components/TextButton';
 import IconTextButton from '../components/IconTextButton';
 
 const Book = ({navigation}) => {
+  const [hours, setHours] = useState(2);
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -20,7 +21,7 @@ const Book = ({navigation}) => {
           contentContainerStyle={styles.scrollContainer}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-          <TouchableOpacity
+            <TouchableOpacity
               style={styles.leftComponent}
               onPress={() => {
                 navigation.navigate('Info');
@@ -91,13 +92,13 @@ const Book = ({navigation}) => {
                   ]}>
                   <View style={[styles.float, {alignItems: 'center'}]}>
                     <Text style={[styles.left, {fontSize: 16, color: 'black'}]}>
-                      10 / 03 / 2023
+                      08 : 00
                     </Text>
                     <Image
-                      source={require('../assets/images/calendar.png')}
+                      source={require('../assets/images/clock.png')}
                       style={[
                         styles.right,
-                        {width: 20, height: 20, marginTop: 4},
+                        {width: 16, height: 16, marginTop: 4, marginRight: 2},
                       ]}
                     />
                   </View>
@@ -117,18 +118,37 @@ const Book = ({navigation}) => {
                     <TextButton
                       title="2 hrs"
                       style={{width: 64, height: 30}}
-                      isOutline={true}
+                      enable={true}
+                      isOutline={hours == 2 ? false : true}
+                      onPress={() => {
+                        setHours(2);
+                      }}
                     />
                     <TextButton
                       title="3 hrs"
                       style={{width: 64, height: 30}}
-                      isOutline={true}
+                      enable={true}
+                      isOutline={hours == 3 ? false : true}
+                      onPress={() => {
+                        setHours(3);
+                      }}
                     />
                   </View>
                 </View>
               </View>
               <View style={[styles.float, {alignItems: 'center'}]}>
-                <View></View>
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                  <View style={{width: 76}}></View>
+                <TextButton
+                      title="4 hrs"
+                      style={{width: 64, height: 30}}
+                      enable={true}
+                      isOutline={hours == 4 ? false : true}
+                      onPress={() => {
+                        setHours(4);
+                      }}
+                    />
+                </View>
                 <View
                   style={[
                     styles.right,
@@ -138,14 +158,22 @@ const Book = ({navigation}) => {
                   ]}>
                   <View style={[styles.float, {alignItems: 'center'}]}>
                     <TextButton
-                      title="4 hrs"
-                      style={{width: 64, height: 30}}
-                      isOutline={false}
-                    />
-                    <TextButton
                       title="6 hrs"
                       style={{width: 64, height: 30}}
-                      isOutline={true}
+                      enable={true}
+                      isOutline={hours == 6 ? false : true}
+                      onPress={() => {
+                        setHours(6);
+                      }}
+                    />
+                    <TextButton
+                      title="8 hrs"
+                      style={{width: 64, height: 30}}
+                      enable={true}
+                      isOutline={hours == 8 ? false : true}
+                      onPress={() => {
+                        setHours(8);
+                      }}
                     />
                   </View>
                 </View>

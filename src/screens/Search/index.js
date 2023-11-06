@@ -14,16 +14,20 @@ import Filter from './filter';
 
 const Search = ({navigation}) => {
   const [isHome, setIsHome] = useState(true);
+  const [scrollStatus, setScrollStatus] = useState(true);
 
   return (
     <View style={styles.container}>
       <ScrollView
+        style={{flexGrow: 1}}
         contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}>
+        scrollEnabled={scrollStatus}
+        showsVerticalScrollIndicator={false}
+      >
         {isHome ? (
           <Home navigation={navigation} setStatus={setIsHome} />
         ) : (
-          <Filter navigation={navigation} />
+          <Filter navigation={navigation} setScrollStatus={setScrollStatus} />
         )}
       </ScrollView>
       <View style={styles.bottomBar}>

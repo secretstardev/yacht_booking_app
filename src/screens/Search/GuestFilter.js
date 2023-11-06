@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 
 import Space from '../../components/Space';
 import TextButton from '../../components/TextButton';
@@ -7,7 +7,9 @@ import TextButton from '../../components/TextButton';
 const GuestFilter = props => {
   const [passenger, setPassenger] = useState(6);
   return (
-    <View style={{paddingVertical: 8, paddingRight: 16}}>
+    <ScrollView
+    scrollEnabled={true}
+    style={{flexGrow: 1, overflow: 'scroll', paddingVertical: 8, paddingRight: 16}}>
       <View>
         <TouchableOpacity
           onPress={() => {
@@ -20,7 +22,7 @@ const GuestFilter = props => {
         </TouchableOpacity>
       </View>
       <Space height={32} />
-      <Text style={{fontWeight: 'bold', color: 'black'}}>
+      <Text style={{fontWeight: 'bold', color: 'rgba(0,0,0,0.8)'}}>
         Number of Passengers
       </Text>
       <Space height={32} />
@@ -89,7 +91,7 @@ const GuestFilter = props => {
           <TextButton title="Search" style={{width: 80, height: 40}} enable={true}/>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

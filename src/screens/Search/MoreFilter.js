@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import React, {useState, useRef} from 'react';
+import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
 import Slider from 'react-native-slider';
 
 import Space from '../../components/Space';
@@ -16,7 +16,7 @@ const MoreFilter = props => {
   };
 
   return (
-    <View style={{padding: 16}}>
+    <View>
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View>
           <TouchableOpacity
@@ -157,9 +157,13 @@ const MoreFilter = props => {
             onSlidingStart={() => console.log('Sliding started')}
             onSlidingComplete={() => console.log('Sliding completed')}
           />
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <Text style={{color: 'black', fontSize: 16}}> $ 0</Text>
+            <Text style={{color: 'black', fontSize: 16}}> $ 1200 +</Text>
+          </View>
         </View>
       </View>
-        <Space height={4} />
+      <Space height={4} />
       <View>
         <Text
           style={{

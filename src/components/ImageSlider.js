@@ -9,7 +9,7 @@ const ImageSlider = props => {
       <View style={styles.slide}>
         <Image
           source={imageLink}
-          resizeMode='cover'
+          resizeMode="cover"
           style={[
             styles.image,
             props.isCard
@@ -48,6 +48,7 @@ const ImageSlider = props => {
   return (
     <View style={styles.container}>
       <Swiper
+        scrollEnabled={props.enable}
         style={styles.wrapper}
         showsButtons={false}
         dotColor="white"

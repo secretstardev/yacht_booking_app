@@ -11,7 +11,7 @@ const TextButton = props => {
       justifyContent: 'center',
       marginVertical: 12,
       paddingHorizontal: 8,
-      borderRadius: 16,
+      borderRadius: 8,
       elevation: 3,
       borderWidth: 1,
       backgroundColor: props.isOutline
@@ -34,7 +34,7 @@ const TextButton = props => {
     <TouchableOpacity
       style={[styles.button, props.style]}
       onPress={() => {
-        props.enable ? onPress() : {};
+        props.enable ? (onPress ? onPress() : {}) : {};
       }}
       activeOpacity={props.enable ? 0.2 : 1}>
       <Text style={styles.text}>{title}</Text>

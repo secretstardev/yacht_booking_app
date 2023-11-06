@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 4,
   },
-  scrollContainer: {flexGrow: 1, overflow: 'scroll'},
+  scrollContainer: {flexGrow: 1, overflow: 'scroll', paddingBottom: 100},
   contain: {
     flex: 1,
     alignItems: 'center',

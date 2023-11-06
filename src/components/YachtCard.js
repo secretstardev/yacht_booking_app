@@ -20,6 +20,7 @@ const YachtCard = props => {
             require('../assets/images/yacht_3.png'),
             require('../assets/images/yacht_1.png'),
           ]}
+          enable={props.enable}
           isCard={true}
           height={170}
           radius={true}
