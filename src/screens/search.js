@@ -420,8 +420,14 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    borderTopWidth: 1,
-    borderTopColor: 'gray',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 10,
+      height: 12,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 10,
   },
   topSection: {
     height: 260,

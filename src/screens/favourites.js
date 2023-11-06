@@ -118,6 +118,11 @@ const styles = StyleSheet.create({
     right: 0,
     borderTopWidth: 1,
     borderTopColor: 'gray',
+    shadowColor: 'black',
+    shadowOffset: { width: 0, height: -2 }, // Adjust the height of the shadow border
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 4,
   },
   float: {
     flexDirection: 'row',

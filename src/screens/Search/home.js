@@ -8,6 +8,8 @@ import {
   TouchableOpacity,
   StyleSheet,
   Modal,
+  SafeAreaView,
+  TextInput,
 } from 'react-native';
 
 import Space from '../../components/Space';
@@ -17,7 +19,8 @@ import TextButton from '../../components/TextButton';
 
 const Home = ({navigation, setStatus}) => {
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [location, setLocation] = useState('');
+  const [guest, setGuest] = useState('');
   const openModal = () => {
     setModalVisible(true);
   };
@@ -37,18 +40,24 @@ const Home = ({navigation, setStatus}) => {
               style={[styles.icon, styles.left]}
             />
             <View style={[styles.left, styles.locationText]}>
-              <Text style={styles.locationLabel}>Location</Text>
+              <Text style={{color: 'rgba(255,255,255, 0.5)'}}>
+                Your Location
+              </Text>
               <Text style={styles.location}>Lorem Ipsum </Text>
             </View>
             <Image
               source={require('../../assets/images/avatar.png')}
-              style={[styles.icon, styles.right]}
+              style={[styles.icon, styles.right, {borderRadius: 8}]}
             />
           </View>
           <Space height={20} />
           <View style={styles.label}>
-            <Text style={styles.location}>With Luxury Yachts</Text>
-            <Text style={styles.location}>Relax on this planet...</Text>
+            <Text style={[styles.location, {fontSize: 18, fontWeight: 'bold'}]}>
+              With Luxury Yachts
+            </Text>
+            <Text style={[styles.location, {fontSize: 18, fontWeight: 'bold'}]}>
+              Relax on this planet...
+            </Text>
           </View>
           <Space height={20} />
           <TouchableOpacity onPress={openModal}>
@@ -60,15 +69,24 @@ const Home = ({navigation, setStatus}) => {
               <Text style={styles.searchLabel}>Where do you want to sail?</Text>
             </View>
           </TouchableOpacity>
+          <Space height={20} />
+
+          <View
+            style={{
+              backgroundColor: 'white',
+              width: '100%',
+              height: 24,
+              borderTopLeftRadius: 24,
+              borderTopRightRadius: 24,
+            }}></View>
         </View>
+
         <View style={styles.main}>
-          <ScrollView
-            contentContainerStyle={styles.contentContainer}
-            showsVerticalScrollIndicator={false}>
+          <View>
             <View>
               <Text
                 style={{
-                  color: 'black',
+                  color: 'rgba(0,0,0,0.7)',
                   fontSize: 20,
                   fontWeight: 'bold',
                 }}>
@@ -80,30 +98,54 @@ const Home = ({navigation, setStatus}) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
                 <View>
-                  <Image
-                    source={require('../../assets/images/type_1.png')}
-                    style={styles.image}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/type_1.png')}
+                      style={styles.image}
+                    />
+                  </TouchableOpacity>
                   <Space height={8} />
-                  <Text style={styles.textAlignCenter}>Yacht</Text>
+                  <Text
+                    style={[
+                      styles.textAlignCenter,
+                      {fontSize: 16, color: 'rgba(0,0,0,0.7)'},
+                    ]}>
+                    Yacht
+                  </Text>
                 </View>
                 <Space width={20} />
                 <View>
-                  <Image
-                    source={require('../../assets/images/type_2.png')}
-                    style={styles.image}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/type_2.png')}
+                      style={styles.image}
+                    />
+                  </TouchableOpacity>
                   <Space height={8} />
-                  <Text style={styles.textAlignCenter}>RIB</Text>
+                  <Text
+                    style={[
+                      styles.textAlignCenter,
+                      {fontSize: 16, color: 'rgba(0,0,0,0.7)'},
+                    ]}>
+                    RIB
+                  </Text>
                 </View>
                 <Space width={20} />
                 <View>
-                  <Image
-                    source={require('../../assets/images/type_3.png')}
-                    style={styles.image}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/type_3.png')}
+                      style={styles.image}
+                    />
+                  </TouchableOpacity>
                   <Space height={8} />
-                  <Text style={styles.textAlignCenter}>HouseBoat</Text>
+                  <Text
+                    style={[
+                      styles.textAlignCenter,
+                      {fontSize: 16, color: 'rgba(0,0,0,0.7)'},
+                    ]}>
+                    HouseBoat
+                  </Text>
                 </View>
               </ScrollView>
             </View>
@@ -111,7 +153,7 @@ const Home = ({navigation, setStatus}) => {
             <View>
               <Text
                 style={{
-                  color: 'black',
+                  color: 'rgba(0,0,0,0.7)',
                   fontSize: 20,
                   fontWeight: 'bold',
                 }}>
@@ -123,51 +165,74 @@ const Home = ({navigation, setStatus}) => {
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}>
                 <View>
-                  <Image
-                    source={require('../../assets/images/destination_1.png')}
-                    style={styles.image}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/destination_1.png')}
+                      style={styles.image}
+                    />
+                  </TouchableOpacity>
                   <Space height={8} />
-                  <Text style={styles.textAlignCenter}>Dubai, Marina</Text>
+                  <Text
+                    style={[
+                      styles.textAlignCenter,
+                      {fontSize: 16, color: 'rgba(0,0,0,0.7)'},
+                    ]}>
+                    Dubai, Marina
+                  </Text>
                 </View>
                 <Space width={20} />
                 <View>
-                  <Image
-                    source={require('../../assets/images/destination_2.png')}
-                    style={styles.image}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/destination_2.png')}
+                      style={styles.image}
+                    />
+                  </TouchableOpacity>
                   <Space height={8} />
-                  <Text style={styles.textAlignCenter}>Abu dhabi</Text>
+                  <Text
+                    style={[
+                      styles.textAlignCenter,
+                      {fontSize: 16, color: 'rgba(0,0,0,0.7)'},
+                    ]}>
+                    Abu dhabi
+                  </Text>
                 </View>
                 <Space width={20} />
                 <View>
-                  <Image
-                    source={require('../../assets/images/destination_3.png')}
-                    style={styles.image}
-                  />
+                  <TouchableOpacity>
+                    <Image
+                      source={require('../../assets/images/destination_3.png')}
+                      style={styles.image}
+                    />
+                  </TouchableOpacity>
                   <Space height={8} />
-                  <Text style={styles.textAlignCenter}>Ras Al Khaimah</Text>
+                  <Text
+                    style={[
+                      styles.textAlignCenter,
+                      {fontSize: 16, color: 'rgba(0,0,0,0.7)'},
+                    ]}>
+                    Ras Al Khaimah
+                  </Text>
                 </View>
               </ScrollView>
             </View>
             <Space height={20} />
+
             <View>
               <Text
                 style={{
-                  color: 'black',
+                  color: '#00144A',
                   fontSize: 20,
                   fontWeight: 'bold',
                 }}>
                 Popular Listing
               </Text>
               <Space height={10} />
-              <View>
-                <YachtCard
-                  onPress={() => {
-                    navigation.navigate('Info');
-                  }}
-                />
-              </View>
+              <YachtCard
+                onPress={() => {
+                  navigation.navigate('Info');
+                }}
+              />
               <Space height={30} />
               <View>
                 <YachtCard
@@ -178,7 +243,7 @@ const Home = ({navigation, setStatus}) => {
               </View>
               <Space height={10} />
             </View>
-          </ScrollView>
+          </View>
         </View>
       </View>
       <Modal
@@ -214,57 +279,70 @@ const Home = ({navigation, setStatus}) => {
               },
               shadowOpacity: 0.25,
               shadowRadius: 3.84,
-              elevation: 5,
+              elevation: 10,
             }}>
             <View
               style={{
                 flexDirection: 'row',
                 padding: 16,
-                borderBottomColor: 'rgb(00144A)',
-                borderBottomWidth: 0.5,
+                borderBottomColor: 'rgba(0,20,74, 0.2)',
+                borderBottomWidth: 1,
+                alignItems: 'center'
               }}>
               <Image
                 source={require('../../assets/images/point.png')}
                 style={{width: 20, height: 20}}
               />
               <Space width={16} />
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-                Dubai, United Arab Emirates
-              </Text>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                padding: 16,
-                borderBottomColor: 'rgb(00144A)',
-                borderBottomWidth: 0.5,
-              }}>
-              <Image
-                source={require('../../assets/images/calendar.png')}
-                style={{width: 20, height: 20}}
+              <TextInput
+                style={{fontWeight: 'bold', padding: 0, width: '80%'}}
+                value={location}
+                placeholder="Dubai, United Arab Emirates "
+                onChangeText={setLocation}
               />
-              <Space width={16} />
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>Date</Text>
             </View>
+            <SafeAreaView>
+              <TouchableOpacity
+                style={{
+                  flexDirection: 'row',
+                  padding: 16,
+                  borderBottomColor: 'rgba(0,20,74, 0.2)',
+                  borderBottomWidth: 1,
+                alignItems: 'center'
+              }}>
+                <Image
+                  source={require('../../assets/images/calendar.png')}
+                  style={{width: 20, height: 20}}
+                />
+                <Space width={16} />
+                <Text style={{fontSize: 16, fontWeight: 'bold'}}>Date</Text>
+              </TouchableOpacity>
+            </SafeAreaView>
             <View
               style={{
                 flexDirection: 'row',
                 padding: 16,
-                borderBottomColor: 'rgb(00144A)',
-                borderBottomWidth: 0.5,
+                borderBottomColor: 'rgba(0,20,74, 0.2)',
+                borderBottomWidth: 1,
+                alignItems: 'center'
               }}>
               <Image
                 source={require('../../assets/images/group.png')}
                 style={{width: 20, height: 20}}
               />
               <Space width={16} />
-              <Text style={{fontSize: 16, fontWeight: 'bold'}}>
-                Number of People
-              </Text>
+              <TextInput
+                style={{fontWeight: 'bold', padding: 0, width: '80%'}}
+                value={guest}
+                keyboardType='numeric'
+                placeholder="Number of Guests "
+                onChangeText={setGuest}
+              />
             </View>
             <View style={{paddingHorizontal: 16}}>
               <TextButton
                 title={'Search'}
+                enable={true}
                 onPress={() => {
                   setStatus(false);
                 }}
@@ -298,9 +376,16 @@ const styles = StyleSheet.create({
     right: 0,
     borderTopWidth: 1,
     borderTopColor: 'gray',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 10,
+      height: 12,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 10,
   },
   topSection: {
-    height: 260,
     backgroundColor: '#246bbc',
   },
   locationSection: {
@@ -324,6 +409,7 @@ const styles = StyleSheet.create({
   },
   location: {
     color: '#ffffff',
+    fontWeight: 'bold',
   },
   label: {
     paddingLeft: 16,
@@ -331,28 +417,28 @@ const styles = StyleSheet.create({
   searchField: {
     marginHorizontal: 24,
     backgroundColor: 'white',
-    height: 50,
+    height: 56,
     borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   searchIcon: {
     flex: 1,
-    margin: 16,
+    marginVertical: 16,
+    marginHorizontal: 16,
     width: 20,
     height: 22,
   },
   searchLabel: {
-    margin: 16,
+    marginVertical: 16,
     flex: 1,
-    color: '#000000',
+    color: '#323A3E',
     fontSize: 16,
     fontWeight: 'bold',
   },
   main: {
-    backgroundColor: '#eeeeee',
     paddingHorizontal: 24,
-    paddingVertical: 32,
+    paddingBottom: 16,
   },
   carousel: {
     flexGrow: 1,

@@ -13,7 +13,7 @@ import IconTextButton from '../components/IconTextButton';
 
 const Yacht = ({navigation}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: 'white'}]}>
       <ScrollView
         contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}>
@@ -933,6 +933,14 @@ const styles = {
     right: 0,
     borderTopWidth: 1,
     borderTopColor: 'gray',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 10,
+      height: 12,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 10,
   },
   contain: {
     flex: 1,

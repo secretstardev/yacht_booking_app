@@ -9,12 +9,11 @@ import {
   ScrollView,
 } from 'react-native';
 
-import Space from '../../components/Space';
 import Home from './home';
 import Filter from './filter';
 
 const Search = ({navigation}) => {
-  const [isHome, setIsHome] = useState(false);
+  const [isHome, setIsHome] = useState(true);
 
   return (
     <View style={styles.container}>
@@ -116,6 +115,14 @@ const styles = StyleSheet.create({
     right: 0,
     borderTopWidth: 1,
     borderTopColor: 'gray',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 10,
+      height: 12,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 20,
+    elevation: 10,
   },
   float: {
     flexDirection: 'row',

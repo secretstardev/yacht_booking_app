@@ -1,19 +1,48 @@
-import React from 'react';
-import {View, Text, StyleSheet, TextInput } from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {Image} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const IconTextInput = props => {
+  const [secure, setSecure] = useState(true);
   return (
     <View style={styles.iconTextInput}>
       <Image source={props.image} style={styles.icon} />
       <TextInput
         style={styles.input}
         placeholder={props.placeholder}
+        value={props.value}
+        onChangeText={props.onChangeText}
+        autoCorrect={false}
+        spellCheck={false}
         underlineColorAndroid="transparent"
-        secureTextEntry={props.secureTextEntry ? true : false}
+        secureTextEntry={props.secureTextEntry ? secure : false}
         focusable={false}
       />
+      {props.secureTextEntry ? (
+        <TouchableOpacity
+          onPress={() => {
+            setSecure(!secure);
+          }}>
+          <Text style={{marginRight: 10}}>{secure ? 'Show' : 'Hide'}</Text>
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
+      {props.valid ? (
+        <Image
+          source={require('../assets/images/yes_out.png')}
+          style={styles.check}
+        />
+      ) : (
+        <></>
+      )}
     </View>
   );
 };
@@ -26,7 +55,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 10,
-    overflow: 'hidden'
+    overflow: 'hidden',
   },
   icon: {
     width: 16,
@@ -40,6 +69,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     backgroundColor: '#fff',
     color: '#424242',
+  },
+
+  check: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
   },
 });
 
