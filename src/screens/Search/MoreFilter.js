@@ -137,6 +137,294 @@ const MoreFilter = props => {
         </View>
       </View>
       <View>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#246bbc',
+          }}>
+          Type
+        </Text>
+        <Space height={4} />
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="Motorboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 0 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(0);
+            }}
+          />
+          <TextButton
+            title="Sailboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 1 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(1);
+            }}
+          />
+          <TextButton
+            title="Catamaran"
+            style={{width: 84, height: 30}}
+            isOutline={type == 2 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(2);
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="RIB"
+            style={{width: 84, height: 30}}
+            isOutline={type == 3 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(3);
+            }}
+          />
+          <TextButton
+            title="Yacht"
+            style={{width: 84, height: 30}}
+            isOutline={type == 4 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(4);
+            }}
+          />
+          <TextButton
+            title="Houseboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 5 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(5);
+            }}
+          />
+        </View>
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="Jetski"
+            style={{width: 84, height: 30}}
+            isOutline={type == 6 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(6);
+            }}
+          />
+        </View>
+      </View>
+      <View>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#246bbc',
+          }}>
+          Type
+        </Text>
+        <Space height={4} />
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="Motorboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 0 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(0);
+            }}
+          />
+          <TextButton
+            title="Sailboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 1 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(1);
+            }}
+          />
+          <TextButton
+            title="Catamaran"
+            style={{width: 84, height: 30}}
+            isOutline={type == 2 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(2);
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="RIB"
+            style={{width: 84, height: 30}}
+            isOutline={type == 3 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(3);
+            }}
+          />
+          <TextButton
+            title="Yacht"
+            style={{width: 84, height: 30}}
+            isOutline={type == 4 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(4);
+            }}
+          />
+          <TextButton
+            title="Houseboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 5 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(5);
+            }}
+          />
+        </View>
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="Jetski"
+            style={{width: 84, height: 30}}
+            isOutline={type == 6 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(6);
+            }}
+          />
+        </View>
+      </View>
+      <View>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: 'bold',
+            color: '#246bbc',
+          }}>
+          Type
+        </Text>
+        <Space height={4} />
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="Motorboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 0 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(0);
+            }}
+          />
+          <TextButton
+            title="Sailboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 1 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(1);
+            }}
+          />
+          <TextButton
+            title="Catamaran"
+            style={{width: 84, height: 30}}
+            isOutline={type == 2 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(2);
+            }}
+          />
+        </View>
+
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="RIB"
+            style={{width: 84, height: 30}}
+            isOutline={type == 3 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(3);
+            }}
+          />
+          <TextButton
+            title="Yacht"
+            style={{width: 84, height: 30}}
+            isOutline={type == 4 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(4);
+            }}
+          />
+          <TextButton
+            title="Houseboat"
+            style={{width: 84, height: 30}}
+            isOutline={type == 5 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(5);
+            }}
+          />
+        </View>
+        <View
+          style={{
+            paddingLeft: 8,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}>
+          <TextButton
+            title="Jetski"
+            style={{width: 84, height: 30}}
+            isOutline={type == 6 ? false : true}
+            enable={true}
+            onPress={() => {
+              setType(6);
+            }}
+          />
+        </View>
+      </View>
+      <View>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: '#246bbc'}}>
           Price per hour ($)
         </Text>
