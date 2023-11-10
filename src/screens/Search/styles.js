@@ -16,8 +16,18 @@ export const styles = {
   },
   hiding1: {
     fontSize: 20,
+    color: '#246bbc',
+    fontWeight: 'bold',
+  },
+  hiding3: {
+    fontSize: 15,
     fontWeight: 'bold',
     color: '#246bbc',
+  },
+  hiding3: {
+    fontSize: 16,
+    color: '#246bbc',
+    fontWeight: 'bold',
   },
   btnView: {
     paddingLeft: 8,
@@ -34,5 +44,25 @@ export const styles = {
     alignSelf: 'flex-end',
     fontSize: 10,
     color: 'black',
+  },
+  thumbContainer: {
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'red',
+    top: -40, // Adjust this value to position the text above the thumb
+    left: 0,
+    right: 0,
+  },
+
+  thumbText: {
+    color: 'black', // Adjust the text color
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  centerV: {
+    flexDirection: 'row',
+    alignContent: 'center',
+    alignItems: 'center',
   },
 };
