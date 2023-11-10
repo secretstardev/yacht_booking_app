@@ -14,8 +14,6 @@ import TextButton from '../components/TextButton';
 import IconTextButton from '../components/IconTextButton';
 
 const Payment = ({navigation}) => {
-  const [inputValue, setInputValue] = useState('');
-
   // Function to handle text input changes
   const handleInputChange = text => {
     setInputValue(text);
