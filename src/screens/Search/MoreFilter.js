@@ -228,8 +228,8 @@ const MoreFilter = props => {
             maximumTrackTintColor="grey"
             thumbTintColor="#246BBC"
             onValueChange={handlePricePerHourChange}
-            onSlidingStart={() => console.log('Sliding started')}
-            onSlidingComplete={() => console.log('Sliding completed')}
+            onSlidingStart={() => {}}
+            onSlidingComplete={() => {}}
           />
 
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -273,8 +273,8 @@ const MoreFilter = props => {
             maximumTrackTintColor="grey"
             thumbTintColor="#246BBC"
             onValueChange={handleYachtLengthChange}
-            onSlidingStart={() => console.log('Sliding started')}
-            onSlidingComplete={() => console.log('Sliding completed')}
+            onSlidingStart={() => {}}
+            onSlidingComplete={() => {}}
           />
 
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -317,8 +317,8 @@ const MoreFilter = props => {
             maximumTrackTintColor="grey"
             thumbTintColor="#246BBC"
             onValueChange={handleMotorPowerChange}
-            onSlidingStart={() => console.log('Sliding started')}
-            onSlidingComplete={() => console.log('Sliding completed')}
+            onSlidingStart={() => {}}
+            onSlidingComplete={() => {}}
           />
 
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -361,8 +361,8 @@ const MoreFilter = props => {
             maximumTrackTintColor="grey"
             thumbTintColor="#246BBC"
             onValueChange={handleYearChange}
-            onSlidingStart={() => console.log('Sliding started')}
-            onSlidingComplete={() => console.log('Sliding completed')}
+            onSlidingStart={() => {}}
+            onSlidingComplete={() => {}}
           />
 
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>

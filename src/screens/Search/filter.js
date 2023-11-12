@@ -94,20 +94,6 @@ const Filter = ({navigation, setScrollStatus}) => {
     outputRange: [0, 50],
   });
 
-  // const panResponder = PanResponder.create({
-  //   onStartShouldSetPanResponder: () => true,
-  //   onPanResponderGrant: () => {
-  //     // Disable scrolling for the main screen
-  //     setScrollStatus(false);
-  //     console.log('false');
-  //   },
-  //   onPanResponderRelease: () => {
-  //     console.log('true');
-  //     // Enable scrolling for the main screen
-  //     setScrollStatus(true);
-  //   },
-  // });
-
   return (
     <TouchableWithoutFeedback onPress={handleOutsideClick}>
       <View style={styles.container}>
@@ -242,7 +228,9 @@ const Filter = ({navigation, setScrollStatus}) => {
               <View style={styles.drawerTopBar}>
                 <Text style={styles.drawerTopBarText}></Text>
               </View>
-              <ScrollView style={styles.drawerBody}>
+              <ScrollView
+                style={styles.drawerBody}
+                showsVerticalScrollIndicator={false}>
                 {filterGuest ? (
                   <GuestFilter closeDrawer={closeDrawer} />
                 ) : (
@@ -260,7 +248,6 @@ const Filter = ({navigation, setScrollStatus}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // alignItems: 'center',
     justifyContent: 'center',
   },
   button: {
