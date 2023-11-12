@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
+import Toast from 'react-native-toast-message';
 import CheckBox from 'expo-checkbox';
 import TextButton from '../components/TextButton';
 import Space from '../components/Space';
@@ -52,6 +53,53 @@ const LoginScreen = ({navigation}) => {
     }
     return;
   };
+
+  const login = async () => {
+    try {
+      const userData = {
+        email: email,
+        password: password,
+        type: 1,
+      };
+      const response = await fetch(
+        'http://gmcharter.syshosting.com:7000/api/v1/auth/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        },
+      );
+
+      const data = await response.json();
+      console.log(data);
+      if (!data.message) {
+        showToast('success', 'Success', 'You are logined!');
+        return true;
+      } else {
+        showToast('error', 'Error', 'Your credential is incorrect.');
+        return false;
+      }
+    } catch (error) {
+      showToast(
+        'error',
+        'Error',
+        'Server Error. Please check network connection.',
+      );
+      return false;
+    }
+  };
+
+  const showToast = (type, text1, text2) => {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+      position: 'bottom',
+    });
+  };
+  
   useEffect(() => {
     validation();
   }, [email, password]);
@@ -132,8 +180,11 @@ const LoginScreen = ({navigation}) => {
             title="Login"
             fontSize={16}
             enable={validated}
-            onPress={() => {
-              navigation.navigate('Search');
+            onPress={async () => {
+              const result = await login();
+              if (result) {
+                navigation.navigate('Search');
+              }
             }}
           />
           <Space height={30} />

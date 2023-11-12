@@ -9,9 +9,10 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
+import Toast from 'react-native-toast-message';
 import CheckBox from 'expo-checkbox';
 import TextButton from '../components/TextButton';
 import Space from '../components/Space';
@@ -70,6 +71,53 @@ const RegisterScreen = ({navigation}) => {
     }
     return;
   };
+
+  const signup = async () => {
+    try {
+      const userData = {
+        name: fullName,
+        email: email,
+        password: password,
+        type: 1,
+      };
+      const response = await fetch(
+        'http://gmcharter.syshosting.com:7000/api/v1/users',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(userData),
+        },
+      );
+
+      const data = await response.json();
+      if (!data.message) {
+        showToast('success', 'Success', 'You are signuped!');
+        return true;
+      } else {
+        showToast('error', 'Error', 'Already user exists.');
+        return false;
+      }
+    } catch (error) {
+      showToast(
+        'error',
+        'Error',
+        'Server Error. Please check network connection.',
+      );
+      return false;
+    }
+  };
+
+  const showToast = (type, text1, text2) => {
+    Toast.show({
+      type: type,
+      text1: text1,
+      text2: text2,
+      position: 'bottom',
+    });
+  };
+
   useEffect(() => {
     validation();
   }, [fullName, email, password]);
@@ -139,8 +187,11 @@ const RegisterScreen = ({navigation}) => {
             title="Continue with email"
             fontSize={16}
             enable={validated}
-            onPress={() => {
-              navigation.navigate('Login');
+            onPress={async () => {
+              const result = await signup();
+              if (result) {
+                navigation.navigate('Login');
+              }
             }}
           />
           <Text style={styles.description}>
