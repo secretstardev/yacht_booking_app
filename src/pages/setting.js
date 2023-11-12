@@ -52,7 +52,6 @@ const Setting = ({navigation}) => {
               data={languages}
               defaultValue={languages[0]}
               onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
@@ -87,7 +86,6 @@ const Setting = ({navigation}) => {
               data={currencies}
               defaultValue={currencies[0]}
               onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index);
               }}
               buttonTextAfterSelection={(selectedItem, index) => {
                 return selectedItem;
