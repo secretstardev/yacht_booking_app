@@ -30,7 +30,7 @@ const Home = ({navigation, setStatus}) => {
   };
 
   return (
-    <View>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View>
         <View style={styles.topSection}>
           <Space height={40} />
@@ -246,6 +246,7 @@ const Home = ({navigation, setStatus}) => {
           </View>
         </View>
       </View>
+      <Space height={100} />
       <Modal
         visible={modalVisible}
         transparent={true}
@@ -287,7 +288,7 @@ const Home = ({navigation, setStatus}) => {
                 padding: 16,
                 borderBottomColor: 'rgba(0,20,74, 0.2)',
                 borderBottomWidth: 1,
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
               <Image
                 source={require('../../assets/images/point.png')}
@@ -308,8 +309,8 @@ const Home = ({navigation, setStatus}) => {
                   padding: 16,
                   borderBottomColor: 'rgba(0,20,74, 0.2)',
                   borderBottomWidth: 1,
-                alignItems: 'center'
-              }}>
+                  alignItems: 'center',
+                }}>
                 <Image
                   source={require('../../assets/images/calendar.png')}
                   style={{width: 20, height: 20}}
@@ -324,7 +325,7 @@ const Home = ({navigation, setStatus}) => {
                 padding: 16,
                 borderBottomColor: 'rgba(0,20,74, 0.2)',
                 borderBottomWidth: 1,
-                alignItems: 'center'
+                alignItems: 'center',
               }}>
               <Image
                 source={require('../../assets/images/group.png')}
@@ -334,7 +335,7 @@ const Home = ({navigation, setStatus}) => {
               <TextInput
                 style={{fontWeight: 'bold', padding: 0, width: '80%'}}
                 value={guest}
-                keyboardType='numeric'
+                keyboardType="numeric"
                 placeholder="Number of Guests "
                 onChangeText={setGuest}
               />
@@ -351,7 +352,7 @@ const Home = ({navigation, setStatus}) => {
           </View>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 

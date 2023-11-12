@@ -94,19 +94,19 @@ const Filter = ({navigation, setScrollStatus}) => {
     outputRange: [0, 50],
   });
 
-  const panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderGrant: () => {
-      // Disable scrolling for the main screen
-      setScrollStatus(false);
-      console.log("false");
-    },
-    onPanResponderRelease: () => {
-      console.log("true");
-      // Enable scrolling for the main screen
-      setScrollStatus(true);
-    },
-  });
+  // const panResponder = PanResponder.create({
+  //   onStartShouldSetPanResponder: () => true,
+  //   onPanResponderGrant: () => {
+  //     // Disable scrolling for the main screen
+  //     setScrollStatus(false);
+  //     console.log('false');
+  //   },
+  //   onPanResponderRelease: () => {
+  //     console.log('true');
+  //     // Enable scrolling for the main screen
+  //     setScrollStatus(true);
+  //   },
+  // });
 
   return (
     <TouchableWithoutFeedback onPress={handleOutsideClick}>
@@ -116,7 +116,9 @@ const Filter = ({navigation, setScrollStatus}) => {
             {filterGuest ? 'Number of Guest' : 'Search Yachts'}
           </Text>
         </Animated.View>
-        <View style={{flex: 1, margin: 16}}>
+        <ScrollView
+          style={{flex: 1, margin: 16}}
+          showsVerticalScrollIndicator={false}>
           <TouchableOpacity>
             <View style={[styles.searchWidget, {backgroundColor: '#f5f5f5'}]}>
               <Image
@@ -222,12 +224,13 @@ const Filter = ({navigation, setScrollStatus}) => {
             </View>
           </View>
           <Space height={10} />
-          <YachtCard enable={slideEnabled}/>
+          <YachtCard enable={slideEnabled} />
           <Space height={30} />
-          <YachtCard enable={slideEnabled}/>
+          <YachtCard enable={slideEnabled} />
           <Space height={30} />
-          <YachtCard enable={slideEnabled}/>
-        </View>
+          <YachtCard enable={slideEnabled} />
+          <Space height={90} />
+        </ScrollView>
         {drawerOpen && (
           <View style={styles.drawerOverlay}>
             <Animated.View
@@ -239,10 +242,7 @@ const Filter = ({navigation, setScrollStatus}) => {
               <View style={styles.drawerTopBar}>
                 <Text style={styles.drawerTopBarText}></Text>
               </View>
-              <ScrollView
-                ref={sliderRef}
-                {...panResponder.panHandlers}
-                style={styles.drawerBody}>
+              <ScrollView style={styles.drawerBody}>
                 {filterGuest ? (
                   <GuestFilter closeDrawer={closeDrawer} />
                 ) : (
