@@ -18,18 +18,12 @@ const Search = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        style={{flexGrow: 1}}
-        contentContainerStyle={styles.scrollContainer}
-        scrollEnabled={scrollStatus}
-        showsVerticalScrollIndicator={false}
-      >
-        {isHome ? (
-          <Home navigation={navigation} setStatus={setIsHome} />
-        ) : (
-          <Filter navigation={navigation} setScrollStatus={setScrollStatus} />
-        )}
-      </ScrollView>
+      {isHome ? (
+        <Home navigation={navigation} setStatus={setIsHome} />
+      ) : (
+        <Filter navigation={navigation} setScrollStatus={setScrollStatus} />
+      )}
+
       <View style={styles.bottomBar}>
         <TouchableOpacity
           onPress={() => {
