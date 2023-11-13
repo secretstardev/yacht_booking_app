@@ -75,31 +75,33 @@ const LoginScreen = ({navigation}) => {
       const data = await response.json();
       console.log(data);
       if (!data.message) {
-        showToast('success', 'Success', 'You are logined!');
+        Toast.show({
+          type: 'success',
+          text1: 'Success',
+          text2: 'You are logined!',
+          position: 'bottom',
+        });
         return true;
       } else {
-        showToast('error', 'Error', 'Your credential is incorrect.');
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Your credential is incorrect.',
+          position: 'bottom',
+        });
         return false;
       }
     } catch (error) {
-      showToast(
-        'error',
-        'Error',
-        'Server Error. Please check network connection.',
-      );
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Server Error. Please check network connection.',
+        position: 'bottom',
+      });
       return false;
     }
   };
 
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-      type: type,
-      text1: text1,
-      text2: text2,
-      position: 'bottom',
-    });
-  };
-  
   useEffect(() => {
     validation();
   }, [email, password]);
@@ -112,9 +114,10 @@ const LoginScreen = ({navigation}) => {
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
-          <TouchableOpacity onPress={() => {
-            navigation.navigate('Welcome');
-          }}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Welcome');
+            }}>
             <Image
               source={require('../assets/images/back.png')}
               style={{width: 40, height: 40}}

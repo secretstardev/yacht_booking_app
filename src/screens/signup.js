@@ -93,29 +93,31 @@ const RegisterScreen = ({navigation}) => {
 
       const data = await response.json();
       if (!data.message) {
-        showToast('success', 'Success', 'You are signuped!');
+        Toast.show({
+          type: 'success',
+          text1: 'Success',
+          text2: 'You are signuped!',
+          position: 'bottom',
+        });
         return true;
       } else {
-        showToast('error', 'Error', 'Already user exists.');
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Already user exists.',
+          position: 'bottom',
+        });
         return false;
       }
     } catch (error) {
-      showToast(
-        'error',
-        'Error',
-        'Server Error. Please check network connection.',
-      );
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Server Error. Please check network connection.',
+        position: 'bottom',
+      });
       return false;
     }
-  };
-
-  const showToast = (type, text1, text2) => {
-    Toast.show({
-      type: type,
-      text1: text1,
-      text2: text2,
-      position: 'bottom',
-    });
   };
 
   useEffect(() => {
