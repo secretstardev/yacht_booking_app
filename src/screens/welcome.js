@@ -13,6 +13,18 @@ import {
 import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
+import Toast from 'react-native-toast-message';
+
+import {
+  GoogleSignin,
+  statusCodes,
+} from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId:
+    '519492099868-1i894undshk9fhaj9n3sfu8ifo8631gd.apps.googleusercontent.com',
+  offlineAccess: false,
+});
 
 const WelcomeScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -23,6 +35,60 @@ const WelcomeScreen = ({navigation}) => {
 
   const handleCloseModal = () => {
     setModalVisible(false);
+  };
+
+  const onGoogleButtonPress = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const {idToken} = await GoogleSignin.signIn();
+      if (idToken != null) {
+        Toast.show({
+          type: 'success',
+          text1: 'Success',
+          text2: 'You are logined!',
+          position: 'bottom',
+        });
+        return true;
+      } else {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Your credential is incorrect.',
+          position: 'bottom',
+        });
+        return false;
+      }
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        console.log(error);
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        console.log(error);
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log(error);
+      }
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Something went wrong',
+        position: 'bottom',
+      });
+      return false;
+    }
+  };
+
+  const revokeAccess = async () => {
+    try {
+      const res = await GoogleSignin.revokeAccess();
+      if (res == null) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_REQUIRED) {
+        console.log(error);
+      }
+    }
   };
 
   return (
@@ -53,8 +119,17 @@ const WelcomeScreen = ({navigation}) => {
               }}
             />
             <View style={styles.buttonContainer}>
-              <IconButton icon="apple" onPress={handleOpenModal} />
-              <IconButton icon="google" />
+              {/* <IconButton icon="apple" onPress={handleOpenModal} /> */}
+              <IconButton icon="apple" onPress={revokeAccess} />
+              <IconButton
+                icon="google"
+                onPress={async () => {
+                  const response = await onGoogleButtonPress();
+                  if (response == true) {
+                    navigation.navigate('Search');
+                  }
+                }}
+              />
             </View>
             <Space height={15} />
             <Text style={styles.description}>
