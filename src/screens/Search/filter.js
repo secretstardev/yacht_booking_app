@@ -9,7 +9,6 @@ import {
   TouchableWithoutFeedback,
   TextInput,
   ScrollView,
-  PanResponder,
 } from 'react-native';
 
 import Space from '../../components/Space';

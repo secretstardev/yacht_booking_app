@@ -33,7 +33,7 @@ const MainNavigator = ({parentNavigator}) => {
           <>
             <Stack.Screen name="Splash" component={SplashScreen} />
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="Register" component={RegisterScreen} />
+            {/* <Stack.Screen name="Register" component={RegisterScreen} />
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Favourite" component={FavouriteScreen} />
             <Stack.Screen name="Message" component={MessageScreen} />
@@ -47,7 +47,7 @@ const MainNavigator = ({parentNavigator}) => {
 
             <Stack.Screen name="Booking" component={BookingScreen} />
             <Stack.Screen name="Profile" component={ProfileScreen} />
-            <Stack.Screen name="Setting" component={SettingScreen} />
+            <Stack.Screen name="Setting" component={SettingScreen} /> */}
           </>
         </Stack.Navigator>
       </>
