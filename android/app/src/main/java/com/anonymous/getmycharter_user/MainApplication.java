@@ -1,4 +1,4 @@
-package com.getmycharter_user;
+package com.anonymous.getmycharter_user;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -14,6 +14,8 @@ import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 import Toast from 'react-native-toast-message';
+// import FingerprintScanner from 'react-native-fingerprint-scanner';
+import auth from '@react-native-firebase/auth';
 
 import {
   GoogleSignin,
@@ -28,7 +30,7 @@ GoogleSignin.configure({
 
 const WelcomeScreen = ({navigation}) => {
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [biometryType, setBiometryType] = useState(false);
   const handleOpenModal = () => {
     setModalVisible(true);
   };
@@ -42,6 +44,9 @@ const WelcomeScreen = ({navigation}) => {
       await GoogleSignin.hasPlayServices();
       const {idToken} = await GoogleSignin.signIn();
       if (idToken != null) {
+        const info = await GoogleSignin.getCurrentUser();
+        // const tokens = await GoogleSignin.getTokens();
+        console.log(info);
         Toast.show({
           type: 'success',
           text1: 'Success',
@@ -64,6 +69,8 @@ const WelcomeScreen = ({navigation}) => {
       } else if (error.code === statusCodes.IN_PROGRESS) {
         console.log(error);
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        console.log(error);
+      } else {
         console.log(error);
       }
       Toast.show({
@@ -90,6 +97,36 @@ const WelcomeScreen = ({navigation}) => {
       }
     }
   };
+
+  // const getMessage = () => {
+  //   if (biometryType == 'Face ID') {
+  //     return 'Scan your Face on the device to continue';
+  //   } else {
+  //     return 'Scan your Fingerprint on the device scanner to continue';
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   FingerprintScanner.isSensorAvailable()
+  //     .then(biometryType => {
+  //       setBiometryType(biometryType);
+  //     })
+  //     .catch(error => console.log('isSensorAvailable error => ', error));
+  // }, []);
+
+  // const showAuthenticationDialog = () => {
+  //   if (biometryType !== null && biometryType !== undefined) {
+  //     FingerprintScanner.authenticate({
+  //       description: getMessage(),
+  //     })
+  //       .then(() => {})
+  //       .catch(error => {
+  //         console.log('Authentication error is => ', error);
+  //       });
+  //   } else {
+  //     console.log('biometric authentication is not available');
+  //   }
+  // };
 
   return (
     <ImageBackground
@@ -119,7 +156,6 @@ const WelcomeScreen = ({navigation}) => {
               }}
             />
             <View style={styles.buttonContainer}>
-              {/* <IconButton icon="apple" onPress={handleOpenModal} /> */}
               <IconButton icon="apple" onPress={revokeAccess} />
               <IconButton
                 icon="google"
@@ -151,7 +187,11 @@ const WelcomeScreen = ({navigation}) => {
           </View>
         </ScrollView>
       </View>
-      <BottomModal visible={modalVisible} onClose={handleCloseModal} />
+      <BottomModal
+        visible={modalVisible}
+        onClose={handleCloseModal}
+        // showAuthenticationDialog={showAuthenticationDialog}
+      />
     </ImageBackground>
   );
 };
@@ -258,7 +298,10 @@ const BottomModal = ({visible, onClose}) => {
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
               {face ? (
                 <View>
-                  <TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      // showAuthenticationDialog();
+                    }}>
                     <Image
                       source={require('../assets/images/face.png')}
                       style={[styles.logo, {width: 40, height: 40}]}

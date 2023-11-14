@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, Image, TextInput} from 'react-native';
 import Slider from 'react-native-slider';
 import Space from '../../components/Space';

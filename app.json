@@ -1,4 +1,7 @@
 {
   "name": "getmycharter_user",
-  "displayName": "getmycharter_user"
+  "displayName": "getmycharter_user",
+  "android": {
+    "package": "com.anonymous.getmycharter_user"
+  }
 }
