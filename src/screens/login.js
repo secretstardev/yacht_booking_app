@@ -58,11 +58,10 @@ const LoginScreen = ({navigation}) => {
     try {
       const userData = {
         email: email,
-        password: password,
-        type: 1,
+        password: password
       };
       const response = await fetch(
-        'http://gmcharter.syshosting.com:7000/api/v1/auth/login',
+        'http://192.168.143.81:7000/api/v1/auth/login',
         {
           method: 'POST',
           headers: {
@@ -73,7 +72,6 @@ const LoginScreen = ({navigation}) => {
       );
 
       const data = await response.json();
-      console.log(data);
       if (!data.message) {
         Toast.show({
           type: 'success',
@@ -92,6 +90,7 @@ const LoginScreen = ({navigation}) => {
         return false;
       }
     } catch (error) {
+      console.log(error);
       Toast.show({
         type: 'error',
         text1: 'Error',

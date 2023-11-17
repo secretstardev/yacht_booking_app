@@ -11,14 +11,15 @@ import {Image} from 'react-native-elements';
 import ImageSlider from './ImageSlider';
 
 const YachtCard = props => {
+  console.log(props.data.images);
   return (
     <View style={styles.card}>
       <View>
         <ImageSlider
           imageLinks={[
-            require('../assets/images/yacht_2.png'),
-            require('../assets/images/yacht_3.png'),
-            require('../assets/images/yacht_1.png'),
+            'http://192.168.143.81:7000/api/v1/asset/yachts/yacht_1.png',
+            'http://192.168.143.81:7000/api/v1/asset/yachts/yacht_2.png',
+            'http://192.168.143.81:7000/api/v1/asset/yachts/yacht_3.png',
           ]}
           enable={props.enable}
           isCard={true}

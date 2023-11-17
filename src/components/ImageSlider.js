@@ -8,7 +8,7 @@ const ImageSlider = props => {
     return (
       <View style={styles.slide}>
         <Image
-          source={imageLink}
+          source={{uri: imageLink}}
           resizeMode="cover"
           style={[
             styles.image,
