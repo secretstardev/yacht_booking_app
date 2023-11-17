@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import {
   View,
   Text,
@@ -21,6 +21,7 @@ const Home = ({navigation, setStatus}) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [location, setLocation] = useState('');
   const [guest, setGuest] = useState('');
+  const [list, setList] = useState([]);
   const openModal = () => {
     setModalVisible(true);
   };
@@ -29,6 +30,19 @@ const Home = ({navigation, setStatus}) => {
     setModalVisible(false);
   };
 
+  const getYachtList = async () => {
+    const response = await fetch('http://192.168.143.81:7000/api/v1/yachts/', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await response.json();
+    await setList(data);
+  };
+  useEffect(() => {
+    getYachtList();
+  }, []);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>
@@ -228,25 +242,24 @@ const Home = ({navigation, setStatus}) => {
                 Popular Listing
               </Text>
               <Space height={10} />
-              <YachtCard
-                onPress={() => {
-                  navigation.navigate('Info');
-                }}
-              />
-              <Space height={30} />
-              <View>
-                <YachtCard
-                  onPress={() => {
-                    navigation.navigate('Info');
-                  }}
-                />
-              </View>
-              <Space height={10} />
+              {list.map((item, index) => {
+                return (
+                  <View key={index}>
+                    <YachtCard
+                      data={item}
+                      onPress={() => {
+                        navigation.navigate('Info');
+                      }}
+                    />
+                    <Space height={30} />
+                  </View>
+                );
+              })}
             </View>
           </View>
         </View>
       </View>
-      <Space height={100} />
+      <Space height={80} />
       <Modal
         visible={modalVisible}
         transparent={true}
