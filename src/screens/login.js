@@ -17,6 +17,11 @@ import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
+
+// HERE: Firebase signin
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 const LoginScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
   const [validated, setValidated] = useState(false);
@@ -55,50 +60,61 @@ const LoginScreen = ({navigation}) => {
   };
 
   const login = async () => {
-    try {
-      const userData = {
-        email: email,
-        password: password,
-        type: 1,
-      };
-      const response = await fetch(
-        'http://gmcharter.syshosting.com:7000/api/v1/auth/login',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        },
-      );
+    // try {
+    //   const userData = {
+    //     email: email,
+    //     password: password,
+    //     type: 1,
+    //   };
+    //   const response = await fetch(
+    //     'http://gmcharter.syshosting.com:7000/api/v1/auth/login',
+    //     {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(userData),
+    //     },
+    //   );
 
-      const data = await response.json();
-      console.log(data);
-      if (!data.message) {
-        Toast.show({
-          type: 'success',
-          text1: 'Success',
-          text2: 'You are logined!',
-          position: 'bottom',
-        });
-        return true;
-      } else {
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: 'Your credential is incorrect.',
-          position: 'bottom',
-        });
-        return false;
-      }
-    } catch (error) {
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Server Error. Please check network connection.',
-        position: 'bottom',
-      });
-      return false;
+    //   const data = await response.json();
+    //   console.log(data);
+    //   if (!data.message) {
+    //     Toast.show({
+    //       type: 'success',
+    //       text1: 'Success',
+    //       text2: 'You are logined!',
+    //       position: 'bottom',
+    //     });
+    //     return true;
+    //   } else {
+    //     Toast.show({
+    //       type: 'error',
+    //       text1: 'Error',
+    //       text2: 'Your credential is incorrect.',
+    //       position: 'bottom',
+    //     });
+    //     return false;
+    //   }
+    // } catch (error) {
+    //   Toast.show({
+    //     type: 'error',
+    //     text1: 'Error',
+    //     text2: 'Server Error. Please check network connection.',
+    //     position: 'bottom',
+    //   });
+    //   return false;
+    // }
+
+    // HERE: Firebase signin
+    try{
+      const newReg = await auth().signInWithEmailAndPassword(email,password)
+  
+      console.log('Sign in done')
+      return newReg
+  
+    }catch(err){
+      alert('Email or Password incorrect');
     }
   };
 

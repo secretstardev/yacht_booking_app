@@ -11,12 +11,30 @@ import {
 
 import Space from '../components/Space';
 
+// HERE: Firestore message
+import firestore from '@react-native-firebase/firestore';
+
 const Messages = ({navigation}) => {
   const [tab, setTab] = useState(true);
 
+
+  // HERE: Firestore message
+  const [users, setUsers] = useState(null)
+  
+  const getUsers = async ()=> {
+    const querySanp = await firestore().collection('users').where('uid','!=',user.uid).get()
+    const allUsers = querySanp.docs.map(docSnap=>docSnap.data())
+
+    setUsers(allUsers)
+  }
+
+  useEffect(()=>{
+    getUsers()
+  },[])
+
   return (
     <View style={styles.container}>
-      <ScrollView
+      {/* <ScrollView
         contentContainerStyle={styles.scrollContainer}
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
@@ -154,7 +172,28 @@ const Messages = ({navigation}) => {
             borderBottomWidth: 0.5,
             borderStyle: 'solid',
           }}></View>
-      </ScrollView>
+      </ScrollView> */}
+
+      {/* HERE: Firebase message */}
+      <ScrollView>
+        <View style={styles.Contain}>
+            <FlatList
+                data={users}
+                keyExtractor={(item)=>item.uid}
+                renderItem={({item}) => (
+                <TouchableOpacity onPress={() => navigation.navigate('Chats', {name: item.name, uid: item.uid})} >
+                    <View style={styles.card} >
+                        <Image style={styles.userImageST} source={{uri: 'https://placeimg.com/140/140/any'}} />
+                      <View style={styles.textArea}>
+                    <Text style={styles.nameText} >{item.name}</Text>
+                    <Text style={styles.msgContent} >{item.email}</Text>
+                    </View>
+                    </View>
+                    </TouchableOpacity>
+                )}
+                />
+        </View>
+        </ScrollView>
       <View style={styles.bottomBar}>
         <TouchableOpacity
           onPress={() => {
