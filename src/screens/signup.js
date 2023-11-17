@@ -18,6 +18,11 @@ import TextButton from '../components/TextButton';
 import Space from '../components/Space';
 import IconButton from '../components/IconButton';
 import IconTextInput from '../components/IconTextInput';
+
+// HERE: Firebase signup
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
+
 const RegisterScreen = ({navigation}) => {
   const [toggleCheckBox, setToggleCheckBox] = useState(false);
 
@@ -73,50 +78,64 @@ const RegisterScreen = ({navigation}) => {
   };
 
   const signup = async () => {
-    try {
-      const userData = {
-        name: fullName,
-        email: email,
-        password: password,
-        type: 1,
-      };
-      const response = await fetch(
-        'http://gmcharter.syshosting.com:7000/api/v1/users',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        },
-      );
+    // try {
+    //   const userData = {
+    //     name: fullName,
+    //     email: email,
+    //     password: password,
+    //     type: 1,
+    //   };
+    //   const response = await fetch(
+    //     'http://gmcharter.syshosting.com:7000/api/v1/users',
+    //     {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(userData),
+    //     },
+    //   );
 
-      const data = await response.json();
-      if (!data.message) {
-        Toast.show({
-          type: 'success',
-          text1: 'Success',
-          text2: 'You are signuped!',
-          position: 'bottom',
-        });
-        return true;
-      } else {
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: 'Already user exists.',
-          position: 'bottom',
-        });
-        return false;
-      }
-    } catch (error) {
-      Toast.show({
-        type: 'error',
-        text1: 'Error',
-        text2: 'Server Error. Please check network connection.',
-        position: 'bottom',
-      });
-      return false;
+    //   const data = await response.json();
+    //   if (!data.message) {
+    //     Toast.show({
+    //       type: 'success',
+    //       text1: 'Success',
+    //       text2: 'You are signuped!',
+    //       position: 'bottom',
+    //     });
+    //     return true;
+    //   } else {
+    //     Toast.show({
+    //       type: 'error',
+    //       text1: 'Error',
+    //       text2: 'Already user exists.',
+    //       position: 'bottom',
+    //     });
+    //     return false;
+    //   }
+    // } catch (error) {
+    //   Toast.show({
+    //     type: 'error',
+    //     text1: 'Error',
+    //     text2: 'Server Error. Please check network connection.',
+    //     position: 'bottom',
+    //   });
+    //   return false;
+    // }
+
+    // HERE: Firebase signup
+    try{
+      const newReg = await auth().createUserWithEmailAndPassword(email,password)
+      firestore().collection('users').doc(newReg.user.uid).set({
+        name: fullName,
+        email: newReg.user.email,
+        uid: newReg.user.uid,
+        type: 1,
+      })
+        }catch(err){
+      alert('Registration Unsuccessful! Try again');
+
     }
   };
 
