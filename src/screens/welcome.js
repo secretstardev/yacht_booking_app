@@ -17,6 +17,7 @@ import Toast from 'react-native-toast-message';
 // import FingerprintScanner from 'react-native-fingerprint-scanner';
 import auth from '@react-native-firebase/auth';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
+import ReactNativeBiometrics, { BiometryTypes } from 'react-native-biometrics';
 import { v4 as uuid } from 'uuid'
 
 import {
@@ -168,35 +169,82 @@ const WelcomeScreen = ({navigation}) => {
     }
   };
 
-  // const getMessage = () => {
-  //   if (biometryType == 'Face ID') {
-  //     return 'Scan your Face on the device to continue';
-  //   } else {
-  //     return 'Scan your Fingerprint on the device scanner to continue';
-  //   }
-  // };
+  const getMessage = () => {
+    if (biometryType == 'Face ID') {
+      return 'Scan your Face on the device to continue';
+    } else {
+      return 'Scan your Fingerprint on the device scanner to continue';
+    }
+  };
 
-  // useEffect(() => {
-  //   FingerprintScanner.isSensorAvailable()
-  //     .then(biometryType => {
-  //       setBiometryType(biometryType);
-  //     })
-  //     .catch(error => console.log('isSensorAvailable error => ', error));
-  // }, []);
+  useEffect(() => {
+    FingerprintScanner.isSensorAvailable()
+      .then(biometryType => {
+        setBiometryType(biometryType);
+      })
+      .catch(error => console.log('isSensorAvailable error => ', error));
+  }, []);
 
-  // const showAuthenticationDialog = () => {
-  //   if (biometryType !== null && biometryType !== undefined) {
-  //     FingerprintScanner.authenticate({
-  //       description: getMessage(),
-  //     })
-  //       .then(() => {})
-  //       .catch(error => {
-  //         console.log('Authentication error is => ', error);
-  //       });
-  //   } else {
-  //     console.log('biometric authentication is not available');
-  //   }
-  // };
+  const showAuthenticationDialog = async () => {
+    if (biometryType !== null && biometryType !== undefined) {
+      const rnBiometrics = new ReactNativeBiometrics();
+
+      const { available, biometryType } =
+        await rnBiometrics.isSensorAvailable();
+    
+      if (!available || biometryType !== BiometryTypes.FaceID) {
+        Alert.alert(
+          'Oops!',
+          'Face ID is not available on this device.',
+        );
+        return;
+      }
+    
+      const userId = await AsyncStorage.getItem('userId');
+    
+      if (!userId) {
+        Alert.alert(
+          'Oops!',
+          'You have to sign in using your credentials first to enable Face ID.',
+        );
+        return;
+      }
+    
+      const timestamp = Math.round(
+        new Date().getTime() / 1000,
+      ).toString();
+      const payload = `${userId}__${timestamp}`;
+    
+      const { success, signature } = await rnBiometrics.createSignature(
+        {
+          promptMessage: 'Sign in',
+          payload,
+        },
+      );
+    
+      if (!success) {
+        Alert.alert(
+          'Oops!',
+          'Something went wrong during authentication with Face ID. Please try again.',
+        );
+        return;
+      }
+    
+      const { status, message } = await verifySignatureWithServer({
+        signature,
+        payload,
+      });
+    
+      if (status !== 'success') {
+        Alert.alert('Oops!', message);
+        return;
+      }
+    
+      Alert.alert('Success!', 'You are successfully authenticated!');
+    } else {
+      console.log('biometric authentication is not available');
+    }
+  };
 
   return (
     <ImageBackground
